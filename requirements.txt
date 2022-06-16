@@ -1,4 +1,5 @@
-Django>=3.0,<4.0
-psycopg2>=2.8
-os
-system
+django-filter~=21.1.0
+djangorestframework-gis
+djangorestframework~=3.13.0
+django~=4.0.0
+psycopg2-binary~=2.9.0
