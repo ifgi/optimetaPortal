@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 djangovenv/
 main.py
+geodjango/
