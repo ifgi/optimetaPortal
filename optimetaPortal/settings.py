@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'optimetaPortal.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "HOST": "localhost",
-        "NAME": "Test1",
-        "PASSWORD": "password",
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "NAME": "optimetaPortal",
+        "PASSWORD": "optimeta",
         "PORT": 5432,
-        "USER": "mymap",
+        "USER": "optimeta",
     }
 }
 
