@@ -15,7 +15,9 @@ Now open browser at <http://127.0.0.1:8000/publications/map/> for the map and <h
 ## Development version
 
 ```bash
-mkvirtualenv optimetaPortal
+# once onle: create virtual environment
+# mkvirtualenv optimetaPortal
+workon optimetaPortal
 
 pip install -r requirements.txt
 
