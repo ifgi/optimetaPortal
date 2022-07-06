@@ -35,7 +35,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTHENTICATION_BACKENDS = (
+    
+    'django.contrib.auth.backends.ModelBackend',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,7 +52,44 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_gis',
     'publications',
+    'magiclink',
+    'django_q',
 ]
+
+Q_CLUSTER = {
+    "name": "optimeta",
+    "workers": 1,
+    "timeout": 10,
+    "retry": 20,
+    "queue_limit": 50,
+    "bulk": 10,
+    "orm": "default",
+    "ack_failures": True,
+    "max_attempts": 5,
+    "attempt_count": 0,
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+# for tetsing only , for production change backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Set Djangos login URL 
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "home"
+LOGIN_URL = "home"
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +99,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.sites.middleware.CurrentSiteMiddleware",
 ]
 
 ROOT_URLCONF = 'optimetaPortal.urls'
@@ -136,3 +178,4 @@ STATIC_URL = 'publications/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

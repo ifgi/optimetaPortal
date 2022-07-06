@@ -1,8 +1,7 @@
 """publications urls."""
 
 from django.urls import path,include
-
-from publications.views import PublicationsMapView
+from publications.views import PublicationsMapView,home,dashboard
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
 
@@ -14,7 +13,11 @@ urlpatterns = [
     path("api/", include("publications.api")), 
     # RSS route 
     path(r'feed/rss', OptimetaFeed(), name ="GeoRSSfeed"), 
-    path("feed/atom", atomFeed(), name ="GeoAtomfeed")
+    path("feed/atom", atomFeed(), name ="GeoAtomfeed"),
+    path('',home),
+    path('/dashboard',dashboard)
 ]
 
-#path('map/marker/<int:pk>', MarkerCreate.as_view(), name='retrieve-customer'),
+
+
+#path('map/marker/<int:pk>', MarkerCreate.as_view(), name='retrieve-customer'),import requests
