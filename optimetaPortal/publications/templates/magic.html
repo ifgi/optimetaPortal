@@ -1,11 +1,12 @@
-<!-- templates/magic.html -->
-
-{% extends 'base.html' %} {% block content %}
-<h1>Login</h1>
-<br />
-<form method="post">
-	{% csrf_token %}
-	<input type="email" name="email" required />
-	<input type="submit" value="Send Login Instructions" />
-</form>
-{% endblock content %}
+<!doctype html>
+<head>
+  <title>Optimeta</title>
+</head>
+<body>
+  <h1>Enter your email to login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" required />
+    <button type="submit">Submit</button>
+  </form>
+</body>

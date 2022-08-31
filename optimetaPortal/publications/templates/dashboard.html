@@ -1,7 +1,9 @@
-<! -- templates/dashboard.html -->
-
-{% extends 'base.html' %} {% block content %}
-<h1>Dashboard</h1>
-<br />
-<h3>Hello {{user.email}}</h3>
-{% endblock content %}
+<!doctype html>
+<h1>Contact Us</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit">Send</button>
+    </div>
+</form>
