@@ -1,5 +1,4 @@
 from email import message
-from msilib.schema import Class
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
@@ -27,8 +26,6 @@ from django.contrib.auth.models import User
 from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
-from sesame.utils import get_query_string
-
 
 class PublicationsMapView(TemplateView):
     """publications map view."""
