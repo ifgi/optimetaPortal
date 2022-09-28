@@ -31,7 +31,7 @@ if os.name == 'nt':
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57'
+SECRET_KEY = env('OPTIMETA_PORTAL_SECRET', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +39,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTHENTICATION_BACKENDS = [
-    
     'django.contrib.auth.backends.ModelBackend',
     "sesame.backends.ModelBackend",
 ]
@@ -73,33 +72,48 @@ Q_CLUSTER = {
 }
 
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
-    }
+    # defaults to local-memory caching, see https://docs.djangoproject.com/en/4.1/topics/cache/#local-memory-caching
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    },
+
+    'dummy': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    },
+
+    #'redis': {
+    #    "BACKEND": "django_redis.cache.RedisCache",
+    #    "LOCATION": "redis://127.0.0.1:6379/1",
+    #    "OPTIONS": {
+    #        "CLIENT_CLASS": "django_redis.client.DefaultClient",
+    #    },
+    #}
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
-# for tetsing only , for production change backend
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#  smtp server settings
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db" # store session data in dtabase, it's persistent and fast enough for us
 
+CACHE_MIDDLEWARE_ALIAS = env('OPTIMETA_PORTAL_CACHE', default='default')
+CACHE_MIDDLEWARE_SECONDS = env('OPTIMETA_PORTAL_CACHE_SECONDS', default=3600)
+
+# for testing use EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND =       env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST =          env('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT =          env('EMAIL_PORT', default=587)
+EMAIL_HOST_USER =     env('EMAIL_HOST_USER', default=False)
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default=False)
+EMAIL_USE_TLS =       env('EMAIL_USE_TLS', default=True)
 
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -136,11 +150,11 @@ WSGI_APPLICATION = 'optimetaPortal.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "NAME": "optimetaPortal",
-        "PASSWORD": "optimeta",
-        "PORT": 5432,
-        "USER": "optimeta",
+        "HOST":      env('DB_HOST', default='localhost'),
+        "NAME":      env('DB_NAME', default='optimetaPortal'),
+        "PASSWORD":  env('DB_PASS', default='optimeta'),
+        "PORT":      env('DB_PORT', default=5432),
+        "USER":      env('DB_USER', default='optimeta'),
     }
 }
 
@@ -184,4 +198,3 @@ STATIC_URL = 'publications/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
