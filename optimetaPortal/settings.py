@@ -8,6 +8,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
+
+See also
+https://djangocentral.com/environment-variables-in-django/
 """
 
 from pathlib import Path
@@ -15,10 +18,9 @@ import os
 import environ
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# .env file in the same directory as settings.py
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env()
 
 # use this if setting up on Windows 10 with GDAL installed from OSGeo4W using defaults
 if os.name == 'nt':

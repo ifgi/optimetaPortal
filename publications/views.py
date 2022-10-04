@@ -10,7 +10,7 @@ from django.http.request import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_http_methods
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.core.mail import send_mail, BadHeaderError
 from django.core.cache import cache
 import secrets
@@ -95,11 +95,12 @@ class PublicationsLoginView(TemplateView):
             return redirect("/")
         return render(request, 'magic.html', {})
 
-def EmailloginView(request):
+def EmailLoginView(request):
           
     if request.method == "GET":
         form = LoginForm()
-        
+        return render(request, "login.html", {"form": form})
+
     else:
         form = LoginForm(request.POST)
         if form.is_valid():            
