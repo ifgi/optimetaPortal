@@ -98,8 +98,8 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db" # store session da
 CACHE_MIDDLEWARE_ALIAS = env('OPTIMETA_PORTAL_CACHE', default='default')
 CACHE_MIDDLEWARE_SECONDS = env('OPTIMETA_PORTAL_CACHE_SECONDS', default=3600)
 
-# for testing use EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND =       env('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+# for testing email sending EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND =       env('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST =          env('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT =          env('EMAIL_PORT', default=587)
 EMAIL_HOST_USER =     env('EMAIL_HOST_USER', default=False)

@@ -1,14 +1,15 @@
+import os
 import unittest
 from helium import *
 
 class SimpleTest(unittest.TestCase):
 
     def test_login_page(self):
-        start_firefox('localhost:8000/publications/login/')
+        start_chrome('localhost:8000/publications/login/', headless=True)
 
         write('optimeta@dev.dev', into='email')
 
-        get_driver().save_screenshot(r'tests-ui/screenshots/login-email.png')
+        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui/screenshots/login-email.png'))
 
         click("Send")
 

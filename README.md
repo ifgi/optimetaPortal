@@ -87,11 +87,15 @@ python manage.py test tests
 # show deprecation warnings
 python -Wa manage.py test
 
-# run UI tests
+# running UI tests needs either compose configuration or a manage.py runserver in a seperate shell
 docker-compose up
 # TODO insert test data
 python -Wa manage.py test tests-ui
 ```
+
+### Develop tests
+
+For developing the UI tests, you can remove the `headless=True` in the statements for starting the browsers so you can "watch along" and inspect the HTML when a breakpoint is hit as the tests are executed.
 
 ### Debug tests with VS Code
 
@@ -107,12 +111,15 @@ A configuration to debug the test code and also print deprecation warnings:
     ],
     "program": "${workspaceFolder}/manage.py",
     "args": [
-        "test"
+        "test",
+        "tests"
     ],
     "django": true,
     "justMyCode": true
 }
 ```
+
+Change the argument `tests` to `tests-ui` to run the UI tests.
 
 See also documentation at <https://code.visualstudio.com/docs/python/tutorial-django>.
 

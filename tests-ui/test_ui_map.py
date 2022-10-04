@@ -6,7 +6,7 @@ from pprint import pprint
 class SimpleTest(unittest.TestCase):
 
     def test_login_page(self):
-        start_firefox('localhost:8000/publications/map/')
+        start_chrome('localhost:8000/publications/map/', headless=True)
 
         get_driver().save_screenshot(r'tests-ui/screenshots/map.png')
 
