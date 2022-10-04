@@ -58,3 +58,11 @@ jobs:
       run: |
         docker-compose up -d
         python manage.py test tests-ui
+
+    - name: Upload screenshots
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: screenshots for Python ${{ matrix.python-version }}
+        path: |
+          ${{ github.workspace }}/tests-ui/screenshots
