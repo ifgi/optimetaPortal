@@ -60,11 +60,6 @@ def get_info():
     bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
     article_data = Publication(name = data['data']['attributes']['titles'][0]['title'], location = bounds)
     article_data.save()
-    
-class PublicationsDashView(TemplateView):
-    template_name = 'dashboard.html'
-    def dash(request):
-        return render(request,"dashboard.html")
 
 class PublicationsLoginView(TemplateView):
 
@@ -101,7 +96,7 @@ def EmailLoginView(request):
         form = LoginForm()
         return render(request, "login.html", {"form": form})
 
-    else:
+    elif request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():            
             email = form.cleaned_data["email"]
@@ -115,7 +110,10 @@ def EmailLoginView(request):
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("/publications/success/")
-    return render(request, "dashboard.html", {"form": form})
+        else:
+            HttpResponseBadRequest('Invalid form')
+    else:
+        return HttpResponseBadRequest('Invalid HTTP method')
 
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
