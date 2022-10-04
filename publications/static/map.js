@@ -7,7 +7,7 @@ map.fitWorld();
 
 /*popup*/
 function onEachFeature(feature, layer) {
-    var popupContent = 'shows the title of artcile ' +
+    var popupContent = 'shows the title of article ' +
         '<a href="http://www.google.com"><h1> Visit Article</h1></a>' ;
 
     if (feature.properties && feature.properties.popupContent) {

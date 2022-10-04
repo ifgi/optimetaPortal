@@ -2,7 +2,8 @@ e[![OPTIMETA Logo](https://projects.tib.eu/fileadmin/_processed_/e/8/csm_Optimet
 
 # OPTIMETA Portal
 
-Geospatial discovery of research articles based on open metadata
+Geospatial discovery of research articles based on open metadata.
+The OPTIMETA Portal is part of the OPTIMETA project (<https://projects.tib.eu/optimeta>) and relies on the spatial and temporal metadata collected for scientific papers with the OPTIMETA Geo Plugin for Open Journal Systems ([OJS](https://pkp.sfu.ca/ojs/)) published at <https://github.com/TIBHannover/optimetaGeo>.
 
 ## Run with Docker
 
@@ -12,7 +13,9 @@ docker-compose up
 
 Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
 
-## Development version
+## Development
+
+### Run locally
 
 Create a `.env` file based on `.env.example` in the same directory where `settings.py` resides and fill in the configuration settings as needed.
 
@@ -24,14 +27,14 @@ workon optimetaPortal
 pip install -r requirements.txt
 
 # create and start local DB (once)
-docker run --name optimetaPortalDB -p 5432:5432 -e POSTGRES_USER=optimeta -e POSTGRES_PASSWORD=optimeta -e POSTGRES_DB=optimetaPortal -d postgres:14
+docker run --name optimetaPortalDB -p 5432:5432 -e POSTGRES_USER=optimeta -e POSTGRES_PASSWORD=optimeta -e POSTGRES_DB=optimetaPortal -d postgis/postgis:14-3.3
 # stop and restart it with
 # docker stop optimetaPortalDB
 # docker start optimetaPortalDB
 
 # run migrations
 python manage.py makemigrations
-#python manage.py migrate
+python manage.py migrate
 
 # start app
 python manage.py runserver
@@ -39,9 +42,80 @@ python manage.py runserver
 
 Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
 
-## Tests
+### Debug with VS Code
 
+Select the Python interpreter created above (`optimetaPortal` environment), see instructions at <https://code.visualstudio.com/docs/python/tutorial-django>.
 
+Configuration for debugging with VS Code:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django Run",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "justMyCode": true
+        }
+    ]
+}
+```
+
+### Debug email sending
+
+Add `EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend` to the `.env` file to have emails printed to the console instead of sent via SMTP.
+
+### Run tests
+
+See <https://docs.djangoproject.com/en/4.1/topics/testing/overview/> for testing Django apps.
+
+UI tests are based on [Helium](https://github.com/mherrmann/selenium-python-helium) (because [Pylenium](https://github.com/ElSnoMan/pyleniumio) would need pytest in addition).
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+```bash
+python manage.py test tests
+
+# show deprecation warnings
+python -Wa manage.py test
+
+# run UI tests
+docker-compose up
+# TODO insert test data
+python -Wa manage.py test tests-ui
+```
+
+### Debug tests with VS Code
+
+A configuration to debug the test code and also print deprecation warnings:
+
+```json
+{
+    "name": "Python: Django Test",
+    "type": "python",
+    "request": "launch",
+    "pythonArgs": [
+        "-Wa"
+    ],
+    "program": "${workspaceFolder}/manage.py",
+    "args": [
+        "test"
+    ],
+    "django": true,
+    "justMyCode": true
+}
+```
+
+See also documentation at <https://code.visualstudio.com/docs/python/tutorial-django>.
 
 ## License
 
+This software is published under the GNU General Public License v3.0 (see file `LICENSE`).

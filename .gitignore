@@ -130,3 +130,5 @@ dmypy.json
 djangovenv/
 main.py
 geodjango/
+
+tests-ui/screenshots/
