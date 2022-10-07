@@ -1,6 +1,7 @@
 """publications urls."""
 
 from django.urls import path,include
+
 from publications.views import PublicationsMapView, EmailLoginView, successView
 from .feeds import OptimetaFeed
 from .feeds import atomFeed

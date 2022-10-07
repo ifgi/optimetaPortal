@@ -27,6 +27,7 @@ from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
 
+
 class PublicationsMapView(TemplateView):
     """publications map view."""
 
@@ -90,13 +91,13 @@ class PublicationsLoginView(TemplateView):
             return redirect("/")
         return render(request, 'magic.html', {})
 
-def EmailLoginView(request):
+
+def EmailloginView(request):
           
     if request.method == "GET":
         form = LoginForm()
-        return render(request, "login.html", {"form": form})
-
-    elif request.method == "POST":
+        
+    else:
         form = LoginForm(request.POST)
         if form.is_valid():            
             email = form.cleaned_data["email"]
@@ -110,10 +111,9 @@ def EmailLoginView(request):
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("/publications/success/")
-        else:
-            HttpResponseBadRequest('Invalid form')
-    else:
-        return HttpResponseBadRequest('Invalid HTTP method')
+
+    return render(request, "dashboard.html", {"form": form})
+
 
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
