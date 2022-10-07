@@ -3,17 +3,18 @@ version: "3.9"
 services:
   db:
     image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
+    #volumes:
+    #  - ./data/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=Test1
-      - POSTGRES_USER=mymap
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=optimetaPortal
+      - POSTGRES_USER=optimeta
+      - POSTGRES_PASSWORD=optimeta
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DB_HOST=db
     volumes:
-      - ./geodjango:/geodjango
+      - .:/optimetaPortal
     ports:
       - "8000:8000"
     depends_on:
