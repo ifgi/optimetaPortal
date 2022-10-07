@@ -1,0 +1,12 @@
+<!doctype html>
+<head>
+  <title>Optimeta</title>
+</head>
+<body>
+  <h1>Enter your email to login</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="email" name="email" required />
+    <button type="submit">Submit</button>
+  </form>
+</body>
