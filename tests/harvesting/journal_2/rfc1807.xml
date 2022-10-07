@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:8330/lib/pkp/xml/oai2.xsl" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+		http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2022-07-04T15:38:44Z</responseDate>
+    <request verb="ListRecords" metadataPrefix="rfc1807">http://localhost:8330/index.php/opti-geo/oai</request>
+    <ListRecords>
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/3</identifier>
+                <datestamp>2022-07-04T15:31:51Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <rfc1807 xmlns="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt
+	http://www.openarchives.org/OAI/1.1/rfc1807.xsd">
+                    <bib-version>v2</bib-version>
+                    <id>http://localhost:8330/index.php/opti-geo/article/view/3</id>
+                    <entry>2022-07-04T15:31:51Z</entry>
+                    <organization>Journal of Optimal Geolocations</organization>
+                    <organization>2022</organization>
+                    <title>Test 3</title>
+                    <author>Contributor, C</author>
+                    <date>2022-07-04</date>
+                    <copyright></copyright>
+                    <other_access>url:http://localhost:8330/index.php/opti-geo/article/view/3</other_access>
+                    <keyword></keyword>
+                    <period>Earth, Europe, Italian Republic</period>
+                    <language>en_US</language>
+                    <abstract>333</abstract>
+                </rfc1807>
+            </metadata>
+        </record>
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/4</identifier>
+                <datestamp>2022-07-04T15:32:40Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <rfc1807 xmlns="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt
+	http://www.openarchives.org/OAI/1.1/rfc1807.xsd">
+                    <bib-version>v2</bib-version>
+                    <id>http://localhost:8330/index.php/opti-geo/article/view/4</id>
+                    <entry>2022-07-04T15:32:40Z</entry>
+                    <organization>Journal of Optimal Geolocations</organization>
+                    <organization>2022</organization>
+                    <title>Test 4</title>
+                    <author>Author, A</author>
+                    <date>2022-07-04</date>
+                    <copyright></copyright>
+                    <other_access>url:http://localhost:8330/index.php/opti-geo/article/view/4</other_access>
+                    <keyword></keyword>
+                    <period>Earth, Europe, United Kingdom of Great Britain and Northern Ireland</period>
+                    <language>en_US</language>
+                    <abstract>444</abstract>
+                </rfc1807>
+            </metadata>
+        </record>
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/5</identifier>
+                <datestamp>2022-07-04T15:31:49Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <rfc1807 xmlns="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://info.internet.isi.edu:80/in-notes/rfc/files/rfc1807.txt
+	http://www.openarchives.org/OAI/1.1/rfc1807.xsd">
+                    <bib-version>v2</bib-version>
+                    <id>http://localhost:8330/index.php/opti-geo/article/view/5</id>
+                    <entry>2022-07-04T15:31:49Z</entry>
+                    <organization>Journal of Optimal Geolocations</organization>
+                    <organization>2022</organization>
+                    <title>Test 5</title>
+                    <author>Writer, W</author>
+                    <date>2022-07-04</date>
+                    <copyright></copyright>
+                    <other_access>url:http://localhost:8330/index.php/opti-geo/article/view/5</other_access>
+                    <keyword></keyword>
+                    <period>Earth, Europe, Kingdom of Spain, Andalusia</period>
+                    <language>en_US</language>
+                    <abstract>55555</abstract>
+                </rfc1807>
+            </metadata>
+        </record>
+    </ListRecords>
+</OAI-PMH>

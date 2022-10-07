@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:8330/lib/pkp/xml/oai2.xsl" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+		http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2022-07-04T15:37:56Z</responseDate>
+    <request verb="ListRecords" metadataPrefix="oai_dc">http://localhost:8330/index.php/opti-geo/oai</request>
+    <ListRecords>
+
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/3</identifier>
+                <datestamp>2022-07-04T15:31:51Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
+	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+                    <dc:title xml:lang="en-US">Test 3: Three</dc:title>
+                    <dc:creator>Contributor, C</dc:creator>
+                    <dc:description xml:lang="en-US">333</dc:description>
+                    <dc:publisher xml:lang="en-US">Journal of Optimal Geolocations</dc:publisher>
+                    <dc:date>2022-07-04</dc:date>
+                    <dc:type>info:eu-repo/semantics/article</dc:type>
+                    <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
+                    <dc:type xml:lang="de-DE">Begutachter Beitrag</dc:type>
+                    <dc:identifier>http://localhost:8330/index.php/opti-geo/article/view/3</dc:identifier>
+                    <dc:source xml:lang="en-US">Journal of Optimal Geolocations; 2022</dc:source>
+                    <dc:coverage xml:lang="en-US">Earth, Europe, Italian Republic</dc:coverage>
+                    <dc:rights xml:lang="de-DE">Copyright (c) 2022 Journal of Optimal Geolocations</dc:rights>
+                </oai_dc:dc>
+            </metadata>
+        </record>
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/4</identifier>
+                <datestamp>2022-07-04T15:32:40Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
+	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+                    <dc:title xml:lang="en-US">Test 4: Four</dc:title>
+                    <dc:creator>Author, A</dc:creator>
+                    <dc:description xml:lang="en-US">444</dc:description>
+                    <dc:publisher xml:lang="en-US">Journal of Optimal Geolocations</dc:publisher>
+                    <dc:date>2022-07-04</dc:date>
+                    <dc:type>info:eu-repo/semantics/article</dc:type>
+                    <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
+                    <dc:type xml:lang="de-DE">Begutachter Beitrag</dc:type>
+                    <dc:identifier>http://localhost:8330/index.php/opti-geo/article/view/4</dc:identifier>
+                    <dc:source xml:lang="en-US">Journal of Optimal Geolocations; 2022</dc:source>
+                    <dc:coverage xml:lang="en-US">Earth, Europe, United Kingdom of Great Britain and Northern Ireland</dc:coverage>
+                    <dc:rights xml:lang="de-DE">Copyright (c) 2022 Journal of Optimal Geolocations</dc:rights>
+                </oai_dc:dc>
+            </metadata>
+        </record>
+        <record>
+            <header>
+                <identifier>oai:ojs2.localhost:8330:article/5</identifier>
+                <datestamp>2022-07-04T15:31:49Z</datestamp>
+                <setSpec>opti-geo:ART</setSpec>
+            </header>
+            <metadata>
+                <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
+	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+                    <dc:title xml:lang="en-US">Test 5: Five</dc:title>
+                    <dc:creator>Writer, W</dc:creator>
+                    <dc:description xml:lang="en-US">55555</dc:description>
+                    <dc:publisher xml:lang="en-US">Journal of Optimal Geolocations</dc:publisher>
+                    <dc:date>2022-07-04</dc:date>
+                    <dc:type>info:eu-repo/semantics/article</dc:type>
+                    <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
+                    <dc:type xml:lang="de-DE">Begutachter Beitrag</dc:type>
+                    <dc:identifier>http://localhost:8330/index.php/opti-geo/article/view/5</dc:identifier>
+                    <dc:source xml:lang="en-US">Journal of Optimal Geolocations; 2022</dc:source>
+                    <dc:coverage xml:lang="en-US">Earth, Europe, Kingdom of Spain, Andalusia</dc:coverage>
+                    <dc:rights xml:lang="de-DE">Copyright (c) 2022 Journal of Optimal Geolocations</dc:rights>
+                </oai_dc:dc>
+            </metadata>
+        </record>
+    </ListRecords>
+</OAI-PMH>

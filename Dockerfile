@@ -8,17 +8,18 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
-# install GDAL from UbuntuGIS
+# install Python 3 and PIP
 RUN apt-get update && \
-    apt install -y -qq software-properties-common && \
-    add-apt-repository ppa:ubuntugis/ppa && \
+    apt-get install -y -qq software-properties-common && \
     apt-get install -y -qq python-is-python3 && \
-    apt-get install -y -qq gdal-bin libgdal-dev python3-gdal
-
-# install PIP
-RUN apt-get update && \
     apt-get install -y -qq python3-pip
 
+# install GDAL from UbuntuGIS
+RUN apt-get update && \
+    add-apt-repository ppa:ubuntugis/ppa && \
+    apt-get install -y -qq gdal-bin libgdal-dev python3-gdal
+
+# install app dependencies
 WORKDIR /tmp
 COPY requirements.txt .
 RUN python3 -m pip install -r requirements.txt
