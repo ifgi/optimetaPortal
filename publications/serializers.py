@@ -12,6 +12,6 @@ class PublicationSerializer(serializers.GeoFeatureModelSerializer):
     class Meta:
         """publication serializer meta class."""
         model = Publication
-        fields = ("id", "name")
+        fields = ("id", "name" ,"date")
         geo_field = "location"
         
