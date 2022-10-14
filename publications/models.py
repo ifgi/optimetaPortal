@@ -2,6 +2,7 @@ from django.db import models
 """Markers models."""
 
 from django.contrib.gis.db import models
+from datetime import date
 
 
 class Publication(models.Model):
@@ -9,6 +10,7 @@ class Publication(models.Model):
 
     name = models.CharField(max_length=255)
     location = models.MultiPolygonField()
+    date = models.DateField(("Date"), default=date.today)
 
     def __str__(self):
         """Return string representation."""
