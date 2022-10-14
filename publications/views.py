@@ -1,4 +1,5 @@
 from email import message
+from msilib.schema import Class
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
@@ -10,7 +11,7 @@ from django.http.request import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_http_methods
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
 from django.core.cache import cache
 import secrets
@@ -26,6 +27,8 @@ from django.contrib.auth.models import User
 from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
+from sesame.utils import get_query_string
+
 
 class PublicationsMapView(TemplateView):
     """publications map view."""
@@ -60,6 +63,14 @@ def get_info():
     bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
     article_data = Publication(name = data['data']['attributes']['titles'][0]['title'], location = bounds)
     article_data.save()
+    
+class PublicationsDashView(TemplateView):
+    template_name = 'dashboard.html'
+    def dash(request):
+        return render(request,"dashboard.html")
+
+class PublicationsTimelineView(TemplateView):
+     template_name = "timeline.html"
 
 class PublicationsLoginView(TemplateView):
 
@@ -90,13 +101,12 @@ class PublicationsLoginView(TemplateView):
             return redirect("/")
         return render(request, 'magic.html', {})
 
-def EmailLoginView(request):
+def EmailloginView(request):
           
     if request.method == "GET":
         form = LoginForm()
-        return render(request, "login.html", {"form": form})
-
-    elif request.method == "POST":
+        
+    else:
         form = LoginForm(request.POST)
         if form.is_valid():            
             email = form.cleaned_data["email"]
@@ -110,10 +120,7 @@ def EmailLoginView(request):
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("/publications/success/")
-        else:
-            HttpResponseBadRequest('Invalid form')
-    else:
-        return HttpResponseBadRequest('Invalid HTTP method')
+    return render(request, "dashboard.html", {"form": form})
 
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
