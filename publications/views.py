@@ -11,7 +11,7 @@ from django.http.request import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET, require_http_methods
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.core.cache import cache
 import secrets
@@ -124,3 +124,19 @@ def EmailloginView(request):
 
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
+
+def myform(request):
+    return render(request,'main.html')
+
+def submitmyform(request):
+    
+    email = request.POST.get('email', False)
+    subject = 'Test Email'
+    data = {"email":email}
+    link = "http://localhost:8000/publications/myform"
+    message =f"""Hello,You requested that we send you a link to log in to our app:    {link}   """
+    send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
+    return HttpResponse("Success! We sent a log in link. Check your email.")
+
+def privacypolicy(request):
+    return render(request,'privacy.html')
