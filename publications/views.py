@@ -116,7 +116,7 @@ def EmailloginView(request):
             
             message =f"""\ Hello,You requested that we send you a link to log in to our app:    {link}   """
             try:
-                send_mail(subject, message, from_email= "optimetatest@gmail.com",recipient_list=[email])
+                send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
             return redirect("/publications/success/")
