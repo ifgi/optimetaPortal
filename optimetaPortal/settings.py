@@ -31,12 +31,12 @@ if os.name == 'nt':
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('OPTIMETA_PORTAL_SECRET', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
+SECRET_KEY = env('OPTIMAP_SECRET', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('OPTIMETA_DEBUG', default=False)
+DEBUG = env('OPTIMAP_DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -93,16 +93,16 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db" # store session data in dtabase, it's persistent and fast enough for us
 
-CACHE_MIDDLEWARE_ALIAS = env('OPTIMETA_PORTAL_CACHE', default='default')
-CACHE_MIDDLEWARE_SECONDS = env('OPTIMETA_PORTAL_CACHE_SECONDS', default=3600)
+CACHE_MIDDLEWARE_ALIAS = env('OPTIMAP_CACHE', default='default')
+CACHE_MIDDLEWARE_SECONDS = env('OPTIMAP_CACHE_SECONDS', default=3600)
 
 # for testing email sending EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND =       env('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST =          env('EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT =          env('EMAIL_PORT', default=587)
-EMAIL_HOST_USER =     env('EMAIL_HOST_USER', default=False)
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default=False)
-EMAIL_USE_TLS =       env('EMAIL_USE_TLS', default=True)
+EMAIL_BACKEND =       env('OPTIMAP_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST =          env('OPTIMAP_EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT =          env('OPTIMAP_EMAIL_PORT', default=587)
+EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default=False)
+EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default=False)
+EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=True)
 
 
 MIDDLEWARE = [
@@ -150,11 +150,11 @@ WSGI_APPLICATION = 'optimetaPortal.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "HOST":      env('DB_HOST', default='localhost'),
-        "NAME":      env('DB_NAME', default='optimetaPortal'),
-        "PASSWORD":  env('DB_PASS', default='optimeta'),
-        "PORT":      env('DB_PORT', default=5432),
-        "USER":      env('DB_USER', default='optimeta'),
+        "HOST":      env('OPTIMAP_DB_HOST', default='localhost'),
+        "NAME":      env('OPTIMAP_DB_NAME', default='optimetaPortal'),
+        "PASSWORD":  env('OPTIMAP_DB_PASS', default='optimeta'),
+        "PORT":      env('OPTIMAP_DB_PORT', default=5432),
+        "USER":      env('OPTIMAP_DB_USER', default='optimeta'),
     }
 }
 

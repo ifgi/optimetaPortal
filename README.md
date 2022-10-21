@@ -5,6 +5,14 @@
 Geospatial discovery of research articles based on open metadata.
 The OPTIMETA Portal is part of the OPTIMETA project (<https://projects.tib.eu/optimeta>) and relies on the spatial and temporal metadata collected for scientific papers with the OPTIMETA Geo Plugin for Open Journal Systems ([OJS](https://pkp.sfu.ca/ojs/)) published at <https://github.com/TIBHannover/optimetaGeo>.
 
+## Configuration
+
+All configuration is done via the file `optimetaPortal/settings.py`.
+Configurations that need to be changed for different installations and for deployment are also exposed as environment variables.
+The names of these environment variables start with `OPTIMAP_`.
+The settings files loads these from a file `.env` stored in the same location as `settings.py`, or from the environment the server is run it.
+A complete list of existing parameters is provided in the file `optimetaPortal/.env.example`.
+
 ## Run with Docker
 
 ```bash
@@ -60,6 +68,9 @@ Configuration for debugging with VS Code:
             "args": [
                 "runserver"
             ],
+            "env": {
+                "OPTIMAP_DEBUG": "True"
+            },
             "django": true,
             "justMyCode": true
         }
@@ -114,6 +125,9 @@ A configuration to debug the test code and also print deprecation warnings:
         "test",
         "tests"
     ],
+    "env": {
+        "OPTIMAP_DEBUG": "True"
+    },
     "django": true,
     "justMyCode": true
 }

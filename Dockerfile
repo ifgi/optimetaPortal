@@ -8,6 +8,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+ENV OPTIMAP_DEBUG=False
+
 # install Python 3 and PIP
 RUN apt-get update && \
     apt-get install -y -qq software-properties-common && \

@@ -1,33 +1,17 @@
-from email import message
-from msilib.schema import Class
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
-from rest_framework import generics
-from publications.serializers import PublicationSerializer
-from django.core import serializers
-from django.urls import reverse_lazy
-from django.http.request import HttpRequest
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_GET, require_http_methods
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
+from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
-from django.core.cache import cache
-import secrets
 import requests
-from django.contrib.gis import geos
-from django.contrib.gis.geos import GEOSGeometry,Polygon,MultiPolygon
-import base64
+from django.contrib.gis.geos import Polygon,MultiPolygon
 from django.core import signing
-from django.contrib.auth import login, get_user_model
-from django.views.decorators.http import require_GET
-from django.utils import timezone
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
-from sesame.utils import get_query_string
 
 
 class PublicationsMapView(TemplateView):
