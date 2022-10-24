@@ -103,7 +103,7 @@ def EmailloginView(request):
                 send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
-            return redirect("/publications/success/")
+            return redirect("/success/")
     return render(request, "dashboard.html", {"form": form})
 
 def successView(request):

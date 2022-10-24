@@ -5,7 +5,7 @@ from helium import *
 class SimpleTest(unittest.TestCase):
 
     def test_login_page(self):
-        start_chrome('localhost:8000/publications/login/', headless=True)
+        start_chrome('localhost:8000/login/', headless=True)
 
         write('optimeta@dev.dev', into='email')
 
