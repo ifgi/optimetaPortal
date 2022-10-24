@@ -45,7 +45,7 @@ def get_info():
     response = requests.get(url)
     data = response.json()
     bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
-    article_data = Publication(name = data['data']['attributes']['titles'][0]['title'], location = bounds)
+    article_data = Publication(title = data['data']['attributes']['titles'][0]['title'], geometry = bounds)
     article_data.save()
     
 class PublicationsDashView(TemplateView):
@@ -109,7 +109,7 @@ def EmailloginView(request):
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
 
-def myform(request):
+def optimap(request):
     return render(request,'main.html')
 
 def submitmyform(request):
