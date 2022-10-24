@@ -10,5 +10,5 @@ from publications.models import Publication
 class PublicationAdmin(admin.OSMGeoAdmin):
     """Publication Admin."""
 
-    list_display = ("name", "location")
+    list_display = ("title", "publicationDate", "creationDate", "lastUpdate")
 # Register your models here.

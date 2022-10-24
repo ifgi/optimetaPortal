@@ -1,33 +1,17 @@
-from email import message
-from msilib.schema import Class
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
-from rest_framework import generics
-from publications.serializers import PublicationSerializer
-from django.core import serializers
-from django.urls import reverse_lazy
-from django.http.request import HttpRequest
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_GET, require_http_methods
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
-from django.core.cache import cache
-import secrets
 import requests
-from django.contrib.gis import geos
-from django.contrib.gis.geos import GEOSGeometry,Polygon,MultiPolygon
-import base64
+from django.contrib.gis.geos import Polygon,MultiPolygon
 from django.core import signing
-from django.contrib.auth import login, get_user_model
-from django.views.decorators.http import require_GET
-from django.utils import timezone
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
-from sesame.utils import get_query_string
 
 
 class PublicationsMapView(TemplateView):
@@ -61,7 +45,7 @@ def get_info():
     response = requests.get(url)
     data = response.json()
     bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
-    article_data = Publication(name = data['data']['attributes']['titles'][0]['title'], location = bounds)
+    article_data = Publication(title = data['data']['attributes']['titles'][0]['title'], geometry = bounds)
     article_data.save()
     
 class PublicationsDashView(TemplateView):
@@ -116,11 +100,27 @@ def EmailloginView(request):
             
             message =f"""\ Hello,You requested that we send you a link to log in to our app:    {link}   """
             try:
-                send_mail(subject, message, from_email= "optimetatest@gmail.com",recipient_list=[email])
+                send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
-            return redirect("/publications/success/")
+            return redirect("/success/")
     return render(request, "dashboard.html", {"form": form})
 
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
+
+def optimap(request):
+    return render(request,'main.html')
+
+def submitmyform(request):
+    
+    email = request.POST.get('email', False)
+    subject = 'Test Email'
+    data = {"email":email}
+    link = "http://localhost:8000/publications/myform"
+    message =f"""Hello,You requested that we send you a link to log in to our app:    {link}   """
+    send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
+    return HttpResponse("Success! We sent a log in link. Check your email.")
+
+def privacypolicy(request):
+    return render(request,'privacy.html')

@@ -1,9 +1,26 @@
 [![OPTIMETA Logo](https://projects.tib.eu/fileadmin/_processed_/e/8/csm_Optimeta_Logo_web_98c26141b1.png)](https://projects.tib.eu/optimeta/en/)
 
-# OPTIMETA Portal
+# OPTIMETA Portal - OPTIMAP
 
 Geospatial discovery of research articles based on open metadata.
 The OPTIMETA Portal is part of the OPTIMETA project (<https://projects.tib.eu/optimeta>) and relies on the spatial and temporal metadata collected for scientific papers with the OPTIMETA Geo Plugin for Open Journal Systems ([OJS](https://pkp.sfu.ca/ojs/)) published at <https://github.com/TIBHannover/optimetaGeo>.
+The product name of the portal is OPTIMAP.
+
+The OPTIMAP has the following features:
+
+- Start page with a full screen map (showing geometries and metadata) and a time line of the areas and time periods of interest for scientific publications
+- Passwordless login via email
+- RESTful API at `/api`
+
+OPTIMAP is based on [Django](https://www.djangoproject.com/) (with [GeoDjango](https://docs.djangoproject.com/en/4.1/ref/contrib/gis/) and [Django REST framework](https://www.django-rest-framework.org/)) with a [PostgreSQL](https://www.postgresql.org/)/[PostGIS](https://postgis.net/) database backend.
+
+## Configuration
+
+All configuration is done via the file `optimetaPortal/settings.py`.
+Configurations that need to be changed for different installations and for deployment are also exposed as environment variables.
+The names of these environment variables start with `OPTIMAP_`.
+The settings files loads these from a file `.env` stored in the same location as `settings.py`, or from the environment the server is run it.
+A complete list of existing parameters is provided in the file `optimetaPortal/.env.example`.
 
 ## Run with Docker
 
@@ -14,6 +31,19 @@ docker-compose up
 Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
 
 ## Development
+
+### Test data
+
+The folder `/fixtures` contains some test data, either as an SQL command to insert into the database, or as a database dump that was created and can be loaded with [`django-admin`](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+[`jq`]() is used for pretty-printing of the output.
+
+```bash
+# create dump after running test_data.sql:
+python manage.py dumpdata --exclude=auth --exclude=contenttypes | jq > fixtures/test_data.json
+
+# load:
+python manage.py loaddata fixtures/test_data.json
+```
 
 ### Run locally
 
@@ -60,6 +90,9 @@ Configuration for debugging with VS Code:
             "args": [
                 "runserver"
             ],
+            "env": {
+                "OPTIMAP_DEBUG": "True"
+            },
             "django": true,
             "justMyCode": true
         }
@@ -114,6 +147,9 @@ A configuration to debug the test code and also print deprecation warnings:
         "test",
         "tests"
     ],
+    "env": {
+        "OPTIMAP_DEBUG": "True"
+    },
     "django": true,
     "justMyCode": true
 }

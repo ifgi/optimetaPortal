@@ -5,8 +5,8 @@ from pprint import pprint
 
 class SimpleTest(unittest.TestCase):
 
-    def test_login_page(self):
-        start_chrome('localhost:8000/publications/map/', headless=True)
+    def test_map_page(self):
+        start_chrome('localhost:8000/map/', headless=True)
 
         get_driver().save_screenshot(r'tests-ui/screenshots/map.png')
 

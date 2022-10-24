@@ -6,13 +6,18 @@ from datetime import date
 
 
 class Publication(models.Model):
-    """A marker with name and location."""
+    """A scientific publication with a title and location."""
 
-    name = models.CharField(max_length=255)
-    location = models.MultiPolygonField()
-    date = models.DateField(("Date"), default=date.today)
+    title = models.CharField(max_length=4096)
+    abstract = models.TextField()
+    publicationDate = models.DateField()
+    doi = models.CharField(max_length=1024, null=True)
+    url = models.URLField(max_length=1024, null=True)
+    geometry = models.GeometryCollectionField()
+
+    creationDate = models.DateTimeField(auto_now_add=True)
+    lastUpdate = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         """Return string representation."""
-        return self.name
-# Create your models here.
+        return self.title
