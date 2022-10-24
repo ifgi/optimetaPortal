@@ -41,7 +41,7 @@ class SimpleTest(TestCase):
         self.assertEqual(body['type'], 'FeatureCollection')
         self.assertEqual(len(body['features']), 2)
 
-        self.assertEqual(len(body['features'][0]['properties']), 3)
+        self.assertEqual(len(body['features'][0]['properties']), 5)
         self.assertEqual(body['features'][0]['properties']['title'], 'Publication One')
         self.assertEqual(body['features'][0]['properties']['publicationDate'], '2022-10-10')
 
