@@ -13,7 +13,6 @@ See also
 https://djangocentral.com/environment-variables-in-django/
 """
 
-from pathlib import Path
 import os
 import environ
 
@@ -61,16 +60,16 @@ INSTALLED_APPS = [
 ]
 
 Q_CLUSTER = {
-    "name": "optimeta",
-    "workers": 1,
-    "timeout": 10,
-    "retry": 20,
-    "queue_limit": 50,
-    "bulk": 10,
-    "orm": "default",
-    "ack_failures": True,
-    "max_attempts": 5,
-    "attempt_count": 0,
+    'name': 'optimeta',
+    'workers': 1,
+    'timeout': 10,
+    'retry': 20,
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',
+    'ack_failures': True,
+    'max_attempts': 5,
+    'attempt_count': 0,
 }
 
 CACHES = {
