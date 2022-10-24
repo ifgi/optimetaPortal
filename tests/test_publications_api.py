@@ -9,7 +9,7 @@ class SimpleTest(unittest.TestCase):
         self.client = Client()
 
     def test_api_root(self):
-        response = self.client.get('/publications/api/publications/')
+        response = self.client.get('/api/publications/')
 
         self.assertEqual(response.status_code, 200)
         #self.assertEqual(len(response.context['publications']), 5)

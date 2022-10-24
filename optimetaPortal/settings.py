@@ -38,6 +38,8 @@ DEBUG = env('OPTIMAP_DEBUG', default=False)
 
 ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
 
+ROOT_URLCONF = 'optimetaPortal.urls'
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     "sesame.backends.ModelBackend",
