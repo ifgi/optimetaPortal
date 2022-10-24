@@ -33,7 +33,7 @@ if os.name == 'nt':
 SECRET_KEY = env('OPTIMAP_SECRET', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('OPTIMAP_DEBUG', default=False)
+DEBUG = env('OPTIMAP_DEBUG', default=True)
 
 ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
 
