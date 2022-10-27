@@ -1,0 +1,38 @@
+html, body, #container {
+    
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+  }
+  #con{
+    width: 100%;
+    white-space: nowrap;    
+  }
+  body {
+    /* height of .navbar, customize with @navbar-height variable */
+    padding-top: 0px;
+    margin-bottom: 0;
+    padding-bottom: 0px;
+  }
+  
+  .navbar {
+    height: 50px;
+  }
+  #sidebar {
+    float: left;
+    height: 100%;
+    width: 10%;
+  }
+  #map {
+    height: 100%;
+    width: 85%;
+  }
+ 
+  .footer {
+    position: absolute;
+    background: #ffab62;
+    height: 100px;
+    padding-bottom: 0px;
+    width: 100%;
+}

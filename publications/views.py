@@ -112,15 +112,19 @@ def successView(request):
 def optimap(request):
     return render(request,'main.html')
 
-def submitmyform(request):
+def loginres(request):
     
     email = request.POST.get('email', False)
     subject = 'Test Email'
     data = {"email":email}
-    link = "http://localhost:8000/publications/myform"
+    link = "http://localhost:8000/loginconfirm"
     message =f"""Hello,You requested that we send you a link to log in to our app:    {link}   """
     send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
-    return HttpResponse("Success! We sent a log in link. Check your email.")
+    #return HttpResponse("Success! We sent a log in link. Check your email.")
+    return render(request,'login_response.html')
 
 def privacypolicy(request):
     return render(request,'privacy.html')
+	
+def Confirmationlogin(request):
+    return render(request,'confirmation_login.html')
