@@ -1,8 +1,8 @@
 const copy = "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const osm = L.tileLayer(url, { attribution: copy });
-const map = L.map("map", { layers: [osm] }).setView([39.74739, -105], 5, worldCopyJump = false);
-
+const map = L.map("map", { layers: [osm] });
+map.fitWorld();
 
 
 /*popup*/
@@ -31,5 +31,6 @@ async function render_publications() {
     })   
     .addTo(map);
 }
+
 
 map.on("moveend", render_publications);
