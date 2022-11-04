@@ -12,6 +12,12 @@ from django.contrib.auth.models import User
 from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
+from django.core.cache import cache
+import secrets
+from django.core.cache.backends import locmem
+from django.http.response import HttpResponseBadRequest
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 
 
 class PublicationsMapView(TemplateView):
@@ -117,8 +123,10 @@ def loginres(request):
     email = request.POST.get('email', False)
     subject = 'Test Email'
     data = {"email":email}
-    link = "http://localhost:8000/loginconfirm"
-    message =f"""Hello,You requested that we send you a link to log in to our app:    {link}   """
+    token = secrets.token_urlsafe(nbytes=32)
+    link = f"http://localhost:8000/{token}"
+    cache.set(token, email, timeout=10 * 60)
+    message =f"""Hello,You requested that we send you a link to log in to our app:    {link} .Please click on the link to login."""
     send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
     #return HttpResponse("Success! We sent a log in link. Check your email.")
     return render(request,'login_response.html')
@@ -128,3 +136,13 @@ def privacypolicy(request):
 	
 def Confirmationlogin(request):
     return render(request,'confirmation_login.html')
+	
+@require_GET
+def autheticate_via_magic_link(request: HttpRequest, token: str):
+    email = cache.get(token)    
+    if email is None:
+        return HttpResponseBadRequest(content="Magic Link invalid/expired")
+    cache.delete(token)
+    user, _ = User.objects.get_or_create(email=email)
+    login(request, user,backend='django.core.cache.backends.locmem.LocMemCache')
+    return render(request,"confirmation_login.html")

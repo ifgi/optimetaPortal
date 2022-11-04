@@ -1,7 +1,7 @@
 """publications urls."""
 
 from django.urls import path,include
-from publications.views import PublicationsMapView,EmailloginView,successView,PublicationsTimelineView,Confirmationlogin,loginres,optimap,privacypolicy
+from publications.views import PublicationsMapView,EmailloginView,successView,PublicationsTimelineView,Confirmationlogin,loginres,optimap,privacypolicy,autheticate_via_magic_link
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
 from sesame.views import LoginView
@@ -21,6 +21,7 @@ urlpatterns = [
     path('loginres/',    loginres,name="loginres"),
     path('privacy',      privacypolicy,name='privacy'),
 	path('loginconfirm/',Confirmationlogin,name="loginconfirm"),
+	path("<str:token>", autheticate_via_magic_link, name="magic_link"),
 ]
 
 
