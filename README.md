@@ -166,3 +166,4 @@ See also documentation at <https://code.visualstudio.com/docs/python/tutorial-dj
 ## License
 
 This software is published under the GNU General Public License v3.0 (see file `LICENSE`).
+For licenses of used libraries and dependencies, e.g., scripts and CSS files in `publications/static/`, see respective files and projects.
