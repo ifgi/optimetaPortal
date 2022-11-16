@@ -79,6 +79,7 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     },
 
+    # use for development
     'dummy': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     },

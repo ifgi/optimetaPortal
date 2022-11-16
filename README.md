@@ -68,6 +68,9 @@ python manage.py migrate
 
 # start app
 python manage.py runserver
+
+# start app with configuration for development
+OPTIMAP_CACHE=dummy OPTIMAP_DEBUG=True python manage.py runserver
 ```
 
 Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
@@ -91,7 +94,8 @@ Configuration for debugging with VS Code:
                 "runserver"
             ],
             "env": {
-                "OPTIMAP_DEBUG": "True"
+                "OPTIMAP_DEBUG": "True",
+                "OPTIMAP_CACHE": "dummy"
             },
             "django": true,
             "justMyCode": true

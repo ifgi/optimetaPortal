@@ -1,20 +1,15 @@
-html, body, #container {
-    
-    flex-wrap: wrap;
-    overflow: hidden;
-    width: 100%;
-    white-space: nowrap;
-  }
-  #con{
-    width: 100%;
-    white-space: nowrap;    
-  }
-  body {
-    /* height of .navbar, customize with @navbar-height variable */
-    padding-top: 0px;
-    margin-bottom: 0;
-    padding-bottom: 0px;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+main {
+  white-space: nowrap;
+}
 
 .navbar {
   height: 50px;
@@ -27,15 +22,22 @@ html, body, #container {
   width: 10%;
 }
 
+#timeline {
+  width: 100%;
+}
+
 #map {
-  height: 500px;
-  width: 1000px;
+  height: calc(100vh - 100px);
+  width: 100%;
 }
 
 .footer {
   position: absolute;
-  height: 100px;
   padding-bottom: 0px;
   width: 100%;
+}
+
+.footer-copyright {
   background-color: #158F9B;
+  height: 50px;
 }
