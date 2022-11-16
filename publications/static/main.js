@@ -1,14 +1,49 @@
-const copy = "© <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors";
-const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const osm = L.tileLayer(url, { attribution: copy });
-const map = L.map("map", { layers: [osm] });
-map.fitWorld();
+const dataCopyright = " | Publication data: <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>";
+const publications_url = '/api/publications/';
 
+async function initMap() {
+    var map = L.map("map");
 
-/*popup*/
-function onEachFeature(feature, layer) {
+    var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' + dataCopyright,
+        maxZoom: 18
+    }).addTo(map);
+
+    var esriWorldImageryLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community' + dataCopyright,
+        maxZoom: 18
+    }).addTo(map);
+
+    var baseLayers = {
+        "OpenStreetMap": osmLayer,
+        "Esri World Imagery": esriWorldImageryLayer
+    };
+
+    publicationsGroup = new L.FeatureGroup();
+    map.addLayer(publicationsGroup);
+
+    var overlayMaps = {
+        "Publications": publicationsGroup
+    };
+    
+    L.control.scale({ position: 'bottomright' }).addTo(map);
+    L.control.layers(baseLayers, overlayMaps).addTo(map);
+
+    var publications = await load_publications();
+    var publicationsLayer = L.geoJSON(publications, {
+        onEachFeature: publicationPopup
+    })
+    publicationsLayer.eachLayer(
+        function (l) {
+            publicationsGroup.addLayer(l);
+        });
+
+    map.fitBounds(publicationsGroup.getBounds());
+}
+
+function publicationPopup(feature, layer) {
     var popupContent = 'shows the title of artcile ' +
-        '<a href="http://www.google.com"><h1> Visit Article</h1></a>' ;
+        '<a href="http://www.google.com"><h1> Visit Article</h1></a>';
 
     if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
@@ -18,19 +53,12 @@ function onEachFeature(feature, layer) {
 }
 
 async function load_publications() {
-    const publications_url = 'http://localhost:8000/api/publications/'
-    const response = await fetch(publications_url)
-    const geojson = await response.json()
-    return geojson
+    response = await fetch(publications_url);
+    geojson = await response.json();
+    return geojson;
 }
 
-async function render_publications() {
-    const publications = await load_publications();
-    L.geoJSON(publications, {
-        onEachFeature: onEachFeature
-    })   
-    .addTo(map);
-}
-
-
-map.on("moveend", render_publications);
+// render publications after page is loaded
+$(function () {
+    initMap();
+});
