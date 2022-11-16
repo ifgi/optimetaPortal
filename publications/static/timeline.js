@@ -1,13 +1,23 @@
-var content = '{"contents":['+
-'{ "name": "Article1", "date": "1997-10-19"},'+
-'{ "name": "Article2", "date": "2001-05-06"},'+
-'{ "name": "Article3", "date": "2021-09-05"}]}'
 
-const obj = JSON.parse(content);
-
-for (var index = 0; index < 3; ++index){
-    document.getElementById("articles").innerHTML += '<li>' +  obj.contents[index].name + "-" + obj.contents[index].date + '</li>';
+async function getarticle() {
+    const publications_url = '/api/publications/'
+    try {
+        let res = await fetch(publications_url);
+        return await res.json();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+async function renderarticle() {
+    let data = await getarticle();
+    console.log('Type:',data.features[0].properties['publicationDate'])
+    const f = data.features.length
+    for (var index = 0; index < f ; ++index){
+        document.getElementById("timeline").innerHTML += '<li>' +'<a href="#">' +  data.features[index].properties['title'] + "-" + data.features[index].properties['publicationDate'] +'</a>'+ '</li>';
+    }
+}
+
+renderarticle();
 
 

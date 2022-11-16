@@ -1,0 +1,43 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+main {
+  white-space: nowrap;
+}
+
+.navbar {
+  height: 50px;
+  background-color: #158F9B;
+}
+
+#sidebar {
+  float: left;
+  height: 100%;
+  width: 10%;
+}
+
+#timeline {
+  width: 100%;
+}
+
+#map {
+  height: calc(100vh - 100px);
+  width: 100%;
+}
+
+.footer {
+  position: absolute;
+  padding-bottom: 0px;
+  width: 100%;
+}
+
+.footer-copyright {
+  background-color: #158F9B;
+  height: 50px;
+}
