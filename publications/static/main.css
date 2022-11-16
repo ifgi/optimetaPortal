@@ -1,3 +1,5 @@
+/* for colours see https://github.com/ifgi/optimetaPortal/issues/36 */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -40,4 +42,22 @@ main {
 .footer-copyright {
   background-color: #158F9B;
   height: 50px;
+}
+
+.alert-primary {
+  color: #000000;
+  background-color: rgba(21, 143, 155, 0.2);
+  border-color: #158F9B;
+}
+
+.alert-success {
+  color: #000000;
+  background-color: rgba(21, 143, 155, 0.2);
+  border-color: #278189;
+}
+
+.alert-danger {
+  color: #000000;
+  background-color: rgba(155, 33, 21, 0.2);
+  border-color: #9B2115;
 }
