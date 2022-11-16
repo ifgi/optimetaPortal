@@ -53,14 +53,6 @@ def get_info():
     bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
     article_data = Publication(title = data['data']['attributes']['titles'][0]['title'], geometry = bounds)
     article_data.save()
-    
-class PublicationsDashView(TemplateView):
-    template_name = 'dashboard.html'
-    def dash(request):
-        return render(request,"dashboard.html")
-
-class PublicationsTimelineView(TemplateView):
-     template_name = "timeline.html"
 
 class PublicationsLoginView(TemplateView):
 
@@ -91,32 +83,11 @@ class PublicationsLoginView(TemplateView):
             return redirect("/")
         return render(request, 'magic.html', {})
 
-def EmailloginView(request):
-          
-    if request.method == "GET":
-        form = LoginForm()
-        
-    else:
-        form = LoginForm(request.POST)
-        if form.is_valid():            
-            email = form.cleaned_data["email"]
-            subject = 'Test Email'
-            data = {"email":email}
-            link = signing.dumps(data)
-            
-            message =f"""\ Hello,You requested that we send you a link to log in to our app:    {link}   """
-            try:
-                send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return redirect("/success/")
-    return render(request, "dashboard.html", {"form": form})
-
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
 
 def optimap(request):
-    return render(request,'main.html')
+    return render(request, 'main.html')
 
 def loginres(request):
     
