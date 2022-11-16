@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
 from .forms import LoginForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.core.mail import send_mail, BadHeaderError
 import requests
 from django.contrib.gis.geos import Polygon,MultiPolygon
@@ -18,7 +18,7 @@ from django.core.cache.backends import locmem
 from django.http.response import HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-
+from django.views.decorators.http import require_GET
 
 class PublicationsMapView(TemplateView):
     """publications map view."""
@@ -97,9 +97,12 @@ def loginres(request):
     token = secrets.token_urlsafe(nbytes=32)
     link = f"http://localhost:8000/{token}"
     cache.set(token, email, timeout=10 * 60)
-    message =f"""Hello,You requested that we send you a link to log in to our app:    {link} .Please click on the link to login."""
+    message =f"""Hello,You requested that we send you a link to log in to our app:
+    
+    {link}
+    
+    Please click on the link to login."""
     send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
-    #return HttpResponse("Success! We sent a log in link. Check your email.")
     return render(request,'login_response.html')
 
 def privacypolicy(request):
@@ -115,5 +118,5 @@ def autheticate_via_magic_link(request: HttpRequest, token: str):
         return HttpResponseBadRequest(content="Magic Link invalid/expired")
     cache.delete(token)
     user, _ = User.objects.get_or_create(email=email)
-    login(request, user,backend='django.core.cache.backends.locmem.LocMemCache')
+    login(request, user, backend='django.core.cache.backends.locmem.LocMemCache')
     return render(request,"confirmation_login.html")

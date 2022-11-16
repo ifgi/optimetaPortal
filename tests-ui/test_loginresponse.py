@@ -3,11 +3,7 @@ import os
 from helium import *
 import time
 
-
-
-
 class LoginresponseTest(unittest.TestCase):
-    
     start_firefox('localhost:8000/')  
     click(Button("signup"))
     write('dev@example.com', into='email')
