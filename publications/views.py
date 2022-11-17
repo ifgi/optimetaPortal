@@ -54,35 +54,6 @@ def get_info():
     article_data = Publication(title = data['data']['attributes']['titles'][0]['title'], geometry = bounds)
     article_data.save()
 
-class PublicationsLoginView(TemplateView):
-
-    template_name = 'magic.html'
-    User = get_user_model()
-        
-    def home(request):
-        if request.POST:
-            email = request.POST.get("email")
-
-            # if the user exists, send them an email
-            if user := User.objects.filter(username=email, is_active=True).first():
-                token = signing.dumps({"email": email})
-                qs = urlencode({"token": token})
-
-                magic_link = request.build_absolute_uri(
-                    location=reverse("auth-magic-link"),
-                ) + f"?{qs}"
-
-                # send email
-                send_mail(
-                    "Login link",
-                    f'Click <a href="{magic_link}">here</a> to login',
-                    'from@example.com',
-                    [email],
-                    fail_silently=True,
-                )
-            return redirect("/")
-        return render(request, 'magic.html', {})
-
 def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
 

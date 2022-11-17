@@ -1,22 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        
-    </head>
-    <body>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-              <h1 class="display-4">Privacy Policy</h1>
-              <p class="lead">Optimeta doesnot collect or log your personal data.We only store your email ID by default and nothing else .</p>
-            </div>
-          </div>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Privacy policy and imprint | {% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-4 py-5 text-wrap">
+    <h1 class="py-2">Privacy policy</h1>
+
+    <p class="lead">Optimeta doesnot collect or log your personal data. We only store your email to identify your user
+      account and nothing else.</p>
+
+    <p>The address of your website is https://optimap.science.</p>
+
+    <p>This website does not use any cookies to track users, with the exception of the login status, to which users
+      provide implicit concent by opening an account on the website.</p>
+
+    <p>This website utilizes map services provided by the OpenStreetMap Foundation, St John’s Innovation Centre, Cowley
+      Road, Cambridge, CB4 0WS, United Kingdom (short OSMF). Your Internet browser or application will connect to
+      servers operated by the OSMF located in the United Kingdom and in other countries. The operator of this site has
+      no control over such connections and processing of your data by the OSMF. You can find more information on the
+      processing of user data by the OSMF in the <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy">OSMF
+        privacy policy</a>.
+      This website integrates the OSMF services exclusively for the legitimate interest (cf. article 6.1f of the GDPR)
+      of displaying the map functions to the users of the website for interactive exploration of the presented datasets.
+    </p>
+
+    <h1 class="py-2">Notice of liability</h1>
+    <p>Although we check the content carefully, we cannot accept responsibility for the content of external links. The
+      linked sites' carriers are responsible for their sites' content.</p>
+
+    {% include "imprint.html" %}
+  </div>
+</div>
+
+{% endblock %}

@@ -5,6 +5,12 @@ from helium import *
 import os
 
 class PrivacypageTests(SimpleTestCase):
+    def test_privacy_link(self):
+        start_firefox('localhost:8000/')
+        click("privacy")    
+        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui/screenshots/privacy.png'))
+        kill_browser()
+
     def test_url_exists_at_correct_location(self):
         response = self.client.get("/privacy/")
         self.assertEqual(response.status_code, 200)
@@ -19,11 +25,5 @@ class PrivacypageTests(SimpleTestCase):
 
     def test_template_content(self):
         response = self.client.get(reverse("publications:privacy"))
-        self.assertContains(response, "Privacy Policy")
-        
-class SimpleTest(unittest.TestCase):
-    
-    start_firefox('localhost:8000/')
-    click("privacy")    
-    get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui/screenshots/privacy.png'))
-    kill_browser()
+        self.assertContains(response, "Privacy policy")
+
