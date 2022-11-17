@@ -1,31 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Privacy information and GDPR disclosure | {% endblock %}
+{% block title %}Privacy policy and imprint | {% endblock %}
 
 {% block content %}
 
 <div class="row justify-content-center">
   <div class="col-4 py-5 text-wrap">
-    <h1 class="py-2">Privacy Policy</h1>
+    <h1 class="py-2">Privacy policy</h1>
 
-    <p class="lead">Optimeta doesnot collect or log your personal data. We only store your email ID by default and
-      nothing else.</p>
+    <p class="lead">Optimeta doesnot collect or log your personal data. We only store your email to identify your user
+      account and nothing else.</p>
 
-    <p>The address of your website is htts://optimap.science.</p>
+    <p>The address of your website is https://optimap.science.</p>
 
-    
+    <p>This website does not use any cookies to track users, with the exception of the login status, to which users
+      provide implicit concent by opening an account on the website.</p>
 
-    <p>This website does not use any cookies.</p>
+    <p>This website utilizes map services provided by the OpenStreetMap Foundation, St John’s Innovation Centre, Cowley
+      Road, Cambridge, CB4 0WS, United Kingdom (short OSMF). Your Internet browser or application will connect to
+      servers operated by the OSMF located in the United Kingdom and in other countries. The operator of this site has
+      no control over such connections and processing of your data by the OSMF. You can find more information on the
+      processing of user data by the OSMF in the <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy">OSMF
+        privacy policy</a>.
+      This website integrates the OSMF services exclusively for the legitimate interest (cf. article 6.1f of the GDPR)
+      of displaying the map functions to the users of the website for interactive exploration of the presented datasets.
+    </p>
 
-    <p>We integrate the maps of the service "OpenStreetMap", which are offered on the basis of the Open Data Commons
-      Open Database Licence
-      (ODbL) by the OpenStreetMap Foundation (OSMF). The data of the users are used by OpenStreetMap
-      exclusively for the purpose of displaying the map functions and for caching the selected settings.
-      settings. This data may include, in particular, IP addresses and location data of users, which, however, may not
-      be used without their
-      their consent (usually completed as part of the settings of their mobile devices);
-      Service provider: OpenStreetMap Foundation (OSMF); Legal basis: Legitimate interests (Art. 6 para. 1 p. 1 lit. f)
-      DSGVO); Privacy policy: https://wiki.osmfoundation.org/wiki/Privacy_Policy.</p>
+    <h1 class="py-2">Notice of liability</h1>
+    <p>Although we check the content carefully, we cannot accept responsibility for the content of external links. The
+      linked sites' carriers are responsible for their sites' content.</p>
+
+    {% include "imprint.html" %}
   </div>
 </div>
 
