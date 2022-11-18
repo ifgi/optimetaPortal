@@ -61,3 +61,8 @@ main {
   background-color: rgba(155, 33, 21, 0.2);
   border-color: #9B2115;
 }
+
+/* have top-right map UI below the login/user menu */
+.leaflet-top {
+  z-index: 999;
+}
