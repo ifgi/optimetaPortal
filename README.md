@@ -108,6 +108,17 @@ Configuration for debugging with VS Code:
 
 Add `EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend` to the `.env` file to have emails printed to the console instead of sent via SMTP.
 
+### Create superusers/admin
+
+Superusers/admin can be created  using the createsuperuser command:
+
+```bash
+python manage.py createsuperuser --username=joe --email=joe@example.com
+```
+You will be prompted for a password. After you enter one, the user will be created immediately. If you leave off the --username or --email options, it will prompt you for those values.
+
+You can acess the admin page at <http://127.0.0.1:8000/admin/> . 
+
 ### Run tests
 
 See <https://docs.djangoproject.com/en/4.1/topics/testing/overview/> for testing Django apps.
