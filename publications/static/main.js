@@ -63,3 +63,11 @@ async function load_publications() {
 $(function () {
     initMap();
 });
+
+// email sent alert
+$(document).ready(function(){
+    $( 'button').click(function() {
+        $('.alert').show()
+    })
+});
+

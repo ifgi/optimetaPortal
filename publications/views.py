@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from publications.models import Publication
 from .forms import LoginForm
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest,HttpResponseRedirect
 from django.core.mail import send_mail, BadHeaderError
 import requests
 from django.contrib.gis.geos import Polygon,MultiPolygon
@@ -17,7 +17,7 @@ import secrets
 from django.core.cache.backends import locmem
 from django.http.response import HttpResponseBadRequest
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.views.decorators.http import require_GET
 
 class PublicationsMapView(TemplateView):
@@ -58,7 +58,16 @@ def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
 
 def optimap(request):
-    return render(request, 'main.html')
+    if 'logged_in' in request.COOKIES and 'username' in request.COOKIES:
+        context = {
+                'useremail':request.COOKIES['useremail'],
+                'login_status':request.COOKIES.get('logged_in_status'),
+            }
+        response = render(request,"main.html",context)
+    else:
+        response = render(request,"main.html")
+    
+    return response
 
 def loginres(request):
     
@@ -74,7 +83,8 @@ def loginres(request):
     
     Please click on the link to login."""
     send_mail(subject, message, from_email= "optimetageo@gmail.com",recipient_list=[email])
-    return render(request,'login_response.html')
+    return redirect("/")
+    
 
 def privacypolicy(request):
     return render(request,'privacy.html')
@@ -84,10 +94,31 @@ def Confirmationlogin(request):
 	
 @require_GET
 def autheticate_via_magic_link(request: HttpRequest, token: str):
-    email = cache.get(token)    
+   
+   email = cache.get(token)    
     if email is None:
         return HttpResponseBadRequest(content="Magic Link invalid/expired")
     cache.delete(token)
     user, _ = User.objects.get_or_create(email=email)
-    login(request, user, backend='django.core.cache.backends.locmem.LocMemCache')
-    return render(request,"confirmation_login.html")
+    login(request, user,backend='django.contrib.auth.backends.ModelBackend')
+    if 'logged_in' in request.COOKIES and 'username' in request.COOKIES:
+        context = {
+                'useremail':request.COOKIES['useremail'],
+                'login_status':request.COOKIES.get('logged_in_status'),
+            }
+        response = render(request,"confirmation_login.html",context)
+    else:
+        response = render(request,"confirmation_login.html")
+    
+    response.set_cookie('useremail', email)
+    response.set_cookie('logged_in_status', True)
+    return response
+
+@login_required
+def customlogout(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    response = HttpResponseRedirect("/")
+    response.delete_cookie('useremail')
+    response.delete_cookie('logged_in_status', True)
+    return response

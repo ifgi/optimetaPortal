@@ -4,7 +4,7 @@
 
 {% block head %}
 <!-- Leaflet-->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
 <script src="{% static 'js/leaflet.js' %}"></script>
 {% endblock %}
@@ -12,30 +12,43 @@
 {% block navbar %}
 
 <ul class="nav navbar-nav ml-auto">
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown" href="#" id="navbarDarkDropdown" role="button" data-toggle="dropdown"
-      aria-expanded="false">
-      <i class="fa fa-user-circle fa-3x"></i>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDarkDropdown">
-      <span class="dropdown-item-text">New around here? Simply login to create a new account.</span>
-      <div class="dropdown-divider"></div>
-      <li class="px-3 py-2">
-        <form class="form" method="POST" action="{% url 'publications:loginres' %}">
-          {% csrf_token %}
-          <div class="form-group">
-            <input id="email" placeholder="Email" class="form-control form-control-sm" type="email" required=""
-              name="email">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-          </div>
-        </form>
-      </li>
-    </ul>
-  </li>
-  
-
+ {% if user.is_authenticated %}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown" href="#"id="navbarDarkDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-user-circle fa-3x"></i> 
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDarkDropdown">
+        <a class="dropdown-item" >{{user.email}}</a>
+        <div class="dropdown-divider"></div>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Subscription</a></li>
+        <li><a class="dropdown-item" href="{% url 'publications:logout' %}">Logout</a></li>
+      </ul>
+    </li>
+    {% else %}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown" href="#" id="navbarDarkDropdown1" role="button" data-toggle="dropdown"
+        aria-expanded="false">
+        <i class="fa fa-user-circle fa-3x"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDarkDropdown1">
+        <span class="dropdown-item-text">New around here? Please login to create a new account </span>
+        <div class="dropdown-divider"></div>
+        <li class="px-3 py-2">
+          <form class="form" method="POST" action="{% url 'publications:loginres' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <input id="email" placeholder="Email" class="form-control form-control-sm" type="email" required=""
+                name="email">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </li>
+  {% endif %}  
 {% endblock %}
 
 {% block content %}
@@ -45,7 +58,7 @@
     <div id="sidebar" class="flex-column p-2">
       <p>Timeline</p>
       <div class="p-2" id="timeline">
-        
+                               
         <!-- content inserted with JavaScript -->
       </div>
     </div>
@@ -62,4 +75,10 @@
 {% block scripts %}
 <script src="{% static 'main.js' %}"></script>
 <script src="{% static 'timeline.js' %}"></script>
+{% endblock %}
+
+{% block alert %}
+<div class="alert alert-primary m-3" id = alert role="alert">  
+  <strong>Awesome!</strong> We sent a link to your email {{user.email}}. Please click on the link to complete your login process.
+</div>
 {% endblock %}
