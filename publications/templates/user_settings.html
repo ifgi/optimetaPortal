@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="accordion" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Change email
+          </button>
+        </h2>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">          
+            <form class="form" method="POST" action="{% url 'publications:loginres' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input id="email" placeholder="Enter your old email" class="form-control form-control-sm" type="email" required=""
+                    name="email">
+                </div>
+                <div class="form-group">
+                    <input id="email" placeholder="Enter your new email" class="form-control form-control-sm" type="email" required=""
+                    name="email">                
+                </div>
+                <div class="form-group">
+                    <input id="email" placeholder="Confirm your new Email" class="form-control form-control-sm" type="email" required=""
+                      name="email">
+                </div>
+                <div class="form-group row">
+                  <button type="submit" class="btn btn-outline-warning">Save Changes</button>
+                  <div class="col-sm-2">
+                    <button type="reset" class="btn btn-outline-danger">Cancel</button>
+                  </div>
+                  
+                </div>
+            </form>
+            
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Delete account
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          
+            <p>Deleting account is permenant.It cannot be reversed.</p>
+          
+          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal1" aria-expanded="false">Delete Account</button>
+         
+          <div id ="modal1" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete Account</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Do you really want to delete this account ?</p>
+                </div>
+                <div class="modal-footer">
+                  <form action="{% url 'publications:delete' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit"  class="btn btn-primary" name='dltbutton'>Delete</button>
+                  </form>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
