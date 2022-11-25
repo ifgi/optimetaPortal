@@ -61,3 +61,48 @@ main {
   background-color: rgba(155, 33, 21, 0.2);
   border-color: #9B2115;
 }
+
+.btn-primary {
+  background-color: #158F9B;
+  border-color: #158F9B;
+}
+
+.btn-primary:hover {
+  background-color: #093C41;
+  border-color: #093C41;
+}
+
+.btn-secondary {
+  background-color: #585858;
+  border-color: #585858;
+}
+
+.btn-primary:hover {
+  background-color: #093C41;
+  border-color: #093C41;
+}
+
+.btn-success {
+  background-color: #158F9B;
+  border-color: #158F9B;
+}
+
+.btn-danger {
+  background-color: #9B2115;
+  border-color: #9B2115;
+}
+
+.btn-warning {
+  background-color: #9B7115;
+  border-color: #9B7115;
+}
+
+.btn-info {
+  background-color: #158F9B;
+  border-color: #158F9B;
+}
+
+/* have top-right map UI below the login/user menu */
+.leaflet-top {
+  z-index: 999;
+}
