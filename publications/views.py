@@ -127,7 +127,7 @@ def autheticate_via_magic_link(request: HttpRequest, token: str):
     if email is None:
         return HttpResponseBadRequest(content="Magic Link invalid/expired")
     cache.delete(token)
-    user, _ = User.objects.get_or_create(email=email)
+    user, _ = User.objects.get_or_create(username=email, email=email)
     login(request, user,backend='django.contrib.auth.backends.ModelBackend')
     if 'logged_in' in request.COOKIES and 'username' in request.COOKIES:
         context = {
