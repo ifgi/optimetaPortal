@@ -1,7 +1,7 @@
 """publications urls."""
 
 from django.urls import path,include
-from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account
+from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
 from sesame.views import LoginView
@@ -24,7 +24,8 @@ urlpatterns = [
     path("logout/", customlogout, name="logout"),
     path("usersettings/", user_settings, name ="usersettings"),
     path("subscriptions/", user_subscriptions, name ="subscriptions"),
-    path("delete/", delete_account, name ="delete")
+    path("delete/", delete_account, name ="delete"),
+	path("changeuser/", change_useremail, name ="changeuser"),
 ]
 
 
