@@ -42,8 +42,9 @@ async function initMap() {
 }
 
 function publicationPopup(feature, layer) {
-    var popupContent = 'shows the title of artcile ' +
-        '<a href="http://www.google.com"><h1> Visit Article</h1></a>';
+    var popupContent = '<h3>'+ feature.properties['title']+'</h3>' +
+        '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'+
+        '<a href="http://www.google.com">Visit Article</a>' ;
 
     if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
@@ -62,3 +63,6 @@ async function load_publications() {
 $(function () {
     initMap();
 });
+
+
+

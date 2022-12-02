@@ -14,6 +14,7 @@ class Publication(models.Model):
     doi = models.CharField(max_length=1024, null=True)
     url = models.URLField(max_length=1024, null=True)
     geometry = models.GeometryCollectionField()
+    journal = models.CharField(max_length=1024, null=True)
 
     creationDate = models.DateTimeField(auto_now_add=True)
     lastUpdate = models.DateTimeField(auto_now=True)
