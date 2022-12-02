@@ -1,7 +1,7 @@
 """publications urls."""
 
 from django.urls import path,include
-from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail
+from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail,harvest_data
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
 from sesame.views import LoginView
@@ -26,6 +26,7 @@ urlpatterns = [
     path("subscriptions/", user_subscriptions, name ="subscriptions"),
     path("delete/", delete_account, name ="delete"),
 	path("changeuser/", change_useremail, name ="changeuser"),
+	path("harvest/", harvest_data, name ="harvest"),
 ]
 
 

@@ -15,7 +15,7 @@ from django.core.cache import cache
 import secrets
 import requests
 from django.contrib import messages
-from django.contrib.gis.geos import Polygon,MultiPolygon
+from django.contrib.gis.geos import Polygon,MultiPolygon,GeometryCollection,Point,MultiPoint
 from django.core import signing
 from django.contrib.auth import login, get_user_model,logout
 from django.views.decorators.http import require_GET
@@ -24,6 +24,11 @@ from django.core import signing
 from django.urls import reverse
 from urllib.parse import urlencode
 from django.conf import settings
+from bs4 import BeautifulSoup
+import json
+import os
+import xml.dom.minidom
+from xml.dom.minidom import parse
 
 
 #populate database from datacite
@@ -90,16 +95,8 @@ def successView(request):
     return HttpResponse("Success! We sent a log in link. Check your email.")
 
 def optimap(request):
-    if 'logged_in' in request.COOKIES and 'username' in request.COOKIES:
-        context = {
-                'useremail':request.COOKIES['useremail'],
-                'login_status':request.COOKIES.get('logged_in_status'),
-            }
-        response = render(request,"main.html",context)
-    else:
-        response = render(request,"main.html")
-    
-    return response
+	return render(request,"main.html")
+   
 
 def loginres(request):
     
@@ -145,7 +142,7 @@ def user_subscriptions(request):
     return render(request,'subscriptions.html')
 
 def delete_account(request):
-    eemail = request.user.email
+    email = request.user.email
     Current_user = User.objects.filter(email = email)
     Current_user.delete()
     messages.info(request, "Your account has been successfully deleted.")
@@ -169,3 +166,42 @@ def change_useremail(request):
         logout(request)
 
     return  render(request,'changeuser.html')
+
+def get_geom(url):
+    soup = BeautifulSoup(open(url,encoding="utf8"), "html.parser") #local file
+    for tag in soup.find_all("meta"):
+        if tag.get("name", None) == "DC.SpatialCoverage":
+            data = tag.get("content", None)
+            json_object = json.loads(data)
+            return json_object
+
+
+def harvest_data(request):
+    url1 = os.path.join(os.getcwd(),'harvesting\\journal_1\\oai_dc.xml')
+    DOMTree = xml.dom.minidom.parse(url1) # parse xml as DOM
+    collection = DOMTree.documentElement
+    articles = collection.getElementsByTagName("record")                                            
+    no_articles = len(articles)  # number of articles in journal
+    for i in range(no_articles):
+        records = collection.getElementsByTagName("record")[i]
+        identifier = records.getElementsByTagName("identifier")
+        identifier_value = identifier[0].firstChild.nodeValue
+        #get geometry from html
+        #identifier_url = os.path.join(os.getcwd(),'harvesting\\journal_1\\article_01.html')
+        #geom = get_geom(identifier_url)
+        #geom_data = geom["features"][0]["geometry"]
+        #geom_data_string = json.dumps(geom_data)
+        bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])           
+        gc = GeometryCollection(Point(0, 0), MultiPoint(Point(0, 0), Point(1, 1)), bounds)
+        title = records.getElementsByTagName("dc:title")
+        title_value = title[0].firstChild.nodeValue
+        journal = records.getElementsByTagName("dc:publisher")
+        journal_value = journal[0].firstChild.nodeValue
+        date = records.getElementsByTagName("dc:date")
+        date_value = date[0].firstChild.nodeValue
+        link = records.getElementsByTagName("dc:identifier")
+        link_value = link[0].firstChild.nodeValue
+        publication = Publication(id = i+2 ,title = title_value,publicationDate = date_value, url = link_value , geometry = gc)
+        publication.save()
+    
+    return render(request,'subscriptions.html')
