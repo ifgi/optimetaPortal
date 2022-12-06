@@ -1,10 +1,10 @@
 """publications urls."""
 
 from django.urls import path,include
-from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail
+from publications.views import privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
-from sesame.views import LoginView
+
 
 app_name = "publications"
 
@@ -14,8 +14,6 @@ urlpatterns = [
     # RSS route 
     path(r'feed/rss', OptimetaFeed(), name ="GeoRSSfeed"), 
     path("feed/atom", atomFeed(), name ="GeoAtomfeed"),
-    path("success/",successView,name="success"),
-    path("login/auth/", LoginView.as_view(), name="login"),
     path('',optimap,name="optimap"),
     path("loginres/",loginres,name="loginres"),
     path("privacy/",privacypolicy,name="privacy"),
@@ -31,4 +29,4 @@ urlpatterns = [
 
 
 
-#path('map/marker/<int:pk>', MarkerCreate.as_view(), name='retrieve-customer'),import requests
+
