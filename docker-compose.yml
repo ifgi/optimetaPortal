@@ -12,9 +12,12 @@ services:
   web:
     build: .
     environment:
-      - DB_HOST=db
+      - DATABASE_URL=postgis://optimeta:optimeta@db:5432/optimetaPortal?sslmode=disable
+    # overwrite app code for development:
     volumes:
-      - .:/optimetaPortal
+    #  - .:/code
+    # load test data
+      - ./fixtures/:/fixtures
     ports:
       - "8000:8000"
     depends_on:

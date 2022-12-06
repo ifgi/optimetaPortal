@@ -15,6 +15,7 @@ https://djangocentral.com/environment-variables-in-django/
 
 import os
 import environ
+import dj_database_url
 
 # .env file in the same directory as settings.py
 env = environ.Env()
@@ -30,7 +31,7 @@ if os.name == 'nt':
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('OPTIMAP_SECRET', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('OPTIMAP_DEBUG', default=True)
@@ -43,7 +44,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     "sesame.backends.ModelBackend",
 ]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -93,7 +93,7 @@ CACHES = {
     #}
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db" # store session data in dtabase, it's persistent and fast enough for us
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db" # store session data in database, it's persistent and fast enough for us
 
 CACHE_MIDDLEWARE_ALIAS = env('OPTIMAP_CACHE', default='default')
 CACHE_MIDDLEWARE_SECONDS = env('OPTIMAP_CACHE_SECONDS', default=3600)
@@ -106,12 +106,12 @@ EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default=False)
 EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default=False)
 EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=True)
 
-
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,7 +130,7 @@ ROOT_URLCONF = 'optimetaPortal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['publications/static/'],
+        'DIRS': ['publications/static/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,21 +145,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'optimetaPortal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+# https://pypi.org/project/dj-database-url/
 DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "HOST":      env('OPTIMAP_DB_HOST', default='localhost'),
-        "NAME":      env('OPTIMAP_DB_NAME', default='optimetaPortal'),
-        "PASSWORD":  env('OPTIMAP_DB_PASS', default='optimeta'),
-        "PORT":      env('OPTIMAP_DB_PORT', default=5432),
-        "USER":      env('OPTIMAP_DB_USER', default='optimeta'),
-    }
+    'default': dj_database_url.config( # this uses DATABASE_URL environment variable
+        # value must be URL-encoded: postgres://user:p%23ssword!@localhost/foobar
+        default='postgis://optimeta:optimeta@localhost:5432/optimetaPortal',
+        conn_max_age=600
+        )
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -175,11 +170,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.1/ref/contrib/staticfiles/
+STATIC_ROOT = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = ['publications/static']
 
-STATIC_URL = 'publications/static/'
+# serve static files with Django, not with a dedicated webserver: http://whitenoise.evans.io/en/stable/django.html
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
