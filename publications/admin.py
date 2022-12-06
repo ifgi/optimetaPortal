@@ -16,4 +16,4 @@ class PublicationAdmin(admin.OSMGeoAdmin):
 @admin.register(OJSservers)
 class ServerAdmin(admin.OSMGeoAdmin):
 
-    url_display = ("url_field","Harvest_Interval","Last_Harvest")
+    url_display = ("url_field","harvest_interval","last_harvest")
