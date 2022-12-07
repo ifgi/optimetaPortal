@@ -16,8 +16,8 @@ services:
     # overwrite app code for development:
     volumes:
     #  - .:/code
-    # load test data
-      - ./fixtures/:/fixtures
+    # mount test data 
+    #  - ./fixtures/:/fixtures
     ports:
       - "8000:8000"
     depends_on:

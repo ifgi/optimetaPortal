@@ -184,6 +184,10 @@ Change the argument `tests` to `tests-ui` to run the UI tests.
 
 See also documentation at <https://code.visualstudio.com/docs/python/tutorial-django>.
 
+## Deploy
+
+Deploy using docker-compose or see [`fly.io.md`](fly.io.md) for notes on deploying to Fly.io.
+
 ## License
 
 This software is published under the GNU General Public License v3.0 (see file `LICENSE`).
