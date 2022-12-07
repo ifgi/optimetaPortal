@@ -125,12 +125,17 @@ def autheticate_via_magic_link(request: HttpRequest, token: str):
     
     email = cache.get(token)    
     if email is None:
-        return HttpResponseBadRequest(content="Magic Link invalid/expired")
+        response = render(request, "error.html", {
+            'error': {
+                'class': 'danger',
+                'title': 'Authentication failed!',
+                'text': 'Magic Link invalid/expired.'
+            }
+        })
     cache.delete(token)
     user, _ = User.objects.get_or_create(username = email,email=email)
     login(request, user,backend='django.contrib.auth.backends.ModelBackend')
     return render(request,"confirmation_login.html")
-
     
 @login_required
 def customlogout(request):
