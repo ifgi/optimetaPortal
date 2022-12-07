@@ -14,6 +14,13 @@ processes = []
 [env]
   OPTIMAP_ALLOWED_HOST = "*"
   PORT = "8000"
+  OPTIMAP_DEBUG = false
+  OPTIMAP_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+  OPTIMAP_EMAIL_HOST= "smtp.ionos.com"
+  OPTIMAP_EMAIL_PORT = "587"
+  OPTIMAP_EMAIL_HOST_USER = "login@optimap.science"
+  OPTIMAP_EMAIL_USE_TLS= true
+  CSRF_TRUSTED_ORIGINS = "https://optimap.science"
 
 [experimental]
   allowed_public_ports = []

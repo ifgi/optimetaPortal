@@ -109,13 +109,19 @@ traceroute optimap.science
 
 Looks good!
 
-## Secrets
+## Secrets and passwords
 
 Check that `SECRET_KEY` environment variable is set, otherwise set it to something... secret:
 
 ```bash
-flyctl secrests list
+flyctl secrets list
 flyctl secrets set SECRET_KEY="..."
+```
+
+Configure **email** password:
+
+```bash
+flyctl secrests set OPTIMAP_EMAIL_HOST_PASSWORD="..."
 ```
 
 ## Deploy
@@ -130,11 +136,17 @@ and
 
 <https://optimap.science/>
 
-## TODO: Update allowed hosts
+## Update allowed hosts
 
 - <https://learndjango.com/tutorials/deploy-django-postgresql-flyio>
 
-CSRF_TRUSTED_ORIGINS = ["*.fly.dev"]
+Add to `tly.toml`:
+
+```toml
+  CSRF_TRUSTED_ORIGINS = "https://optimap.science"
+```
+
+Then `flyctl deploy`.
 
 ## Future
 
