@@ -1,7 +1,7 @@
 import unittest
 from django.test import SimpleTestCase
 from django.urls import reverse  
-from helium import *
+from helium import start_firefox,click,get_driver
 import os
 
 class PrivacypageTests(SimpleTestCase):

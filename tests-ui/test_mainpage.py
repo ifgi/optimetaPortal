@@ -1,9 +1,6 @@
 import unittest
 import os
-from helium import *
-
-
-
+from helium import start_firefox,get_driver,kill_browser
 
 class MainpageTest(unittest.TestCase):
     
