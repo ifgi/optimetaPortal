@@ -79,6 +79,9 @@ Please click on the link to log in.
 def privacypolicy(request):
     return render(request,'privacy.html')
 
+def data(request):
+    return render(request,'data.html')
+
 def Confirmationlogin(request):
     return render(request,'confirmation_login.html')
 

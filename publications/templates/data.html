@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load optimeta_extras %}
+
+{% block title %}API | {% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-4 py-5 text-wrap">
+    <h1 class="py-2">OPTIMAP data access</h1>
+
+    <p class="lead">All publication metadata published in OPTIMAP is licensed under a Create Commons Zero (<a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>) license.</p>
+
+    <h1 class="py-2">API endpoint</h1>
+    <p>The API endpoint is <b>{{ site|addstr:"/api"|urlize }}</b>. Visit the URL in your browser to get an interactive interface for exploring the API.</p>
+
+    <h1 class="py-2">OpenAPI schema</h1>
+    <p>You can download an OpenAPI specification of the api at <b>{{ site|addstr:"/api/schema"|urlize }}</b>.</p>
+
+    <h1 class="py-2">OpenAPI user interface</h1>
+    <p>You can explore the API with an interactive user intreface built based on the OpenAPI schema at <b>{{ site|addstr:"/api/schema/ui"|urlize }}</b>.</p>
+
+  </div>
+</div>
+
+{% endblock %}

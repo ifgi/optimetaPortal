@@ -1,4 +1,4 @@
-const dataCopyright = " | Publication data license: <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>";
+const dataCopyright = " | Publication metadata license: <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>";
 const publications_url = '/api/publications/';
 
 async function initMap() {
