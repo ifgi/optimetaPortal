@@ -14,8 +14,7 @@ urlpatterns = [
     # RSS route 
     path(r'feed/rss', OptimetaFeed(), name ="GeoRSSfeed"), 
     path("feed/atom", atomFeed(), name ="GeoAtomfeed"),
-    path("success/",successView,name="success"),
-    path("login/auth/", LoginView.as_view(), name="login"),
+    path("success/",successView, name="success"),
     path('',optimap,name="optimap"),
     path("loginres/",loginres,name="loginres"),
     path("privacy/",privacypolicy,name="privacy"),
@@ -27,7 +26,3 @@ urlpatterns = [
     path("delete/", delete_account, name ="delete"),
 	path("changeuser/", change_useremail, name ="changeuser"),
 ]
-
-
-
-#path('map/marker/<int:pk>', MarkerCreate.as_view(), name='retrieve-customer'),import requests

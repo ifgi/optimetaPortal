@@ -1,21 +1,17 @@
-from django.http.response import HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from publications.models import Publication
 from django.core.cache import cache
 from django.http.request import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
 from .forms import LoginForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.core.cache import cache
 import secrets
-import requests
 from django.contrib import messages
-from django.contrib.gis.geos import Polygon,MultiPolygon
 from django.core import signing
 from django.contrib.auth import login, get_user_model,logout
 from django.views.decorators.http import require_GET
@@ -27,46 +23,9 @@ from django.conf import settings
 
 
 #populate database from datacite
-def get_info():
-    url = "https://api.test.datacite.org/dois/10.5438/0012"  # test change for production
-    response = requests.get(url)
-    data = response.json()
-    bounds=MultiPolygon([Polygon(((-117.869537353516, 33.5993881225586),(-117.869537353516, 33.7736549377441),(-117.678024291992, 33.7736549377441),(-117.678024291992, 33.5993881225586),(-117.869537353516, 33.5993881225586)))])   
-    article_data = Publication(name = data['data']['attributes']['titles'][0]['title'], location = bounds)
-    article_data.save()
-    
-
-class PublicationsLoginView(TemplateView):
-
-    template_name = 'magic.html'
-    User = get_user_model()
-        
-    def home(request):
-        if request.POST:
-            email = request.POST.get("email")
-
-            # if the user exists, send them an email
-            if user := User.objects.filter(username=email, is_active=True).first():
-                token = signing.dumps({"email": email})
-                qs = urlencode({"token": token})
-
-                magic_link = request.build_absolute_uri(
-                    location=reverse("auth-magic-link"),
-                ) + f"?{qs}"
-
-                # send email
-                send_mail(
-                    "Login link",
-                    f'Click <a href="{magic_link}">here</a> to login',
-                    'from@example.com',
-                    [email],
-                    fail_silently=True,
-                )
-            return redirect("/")
-        return render(request, 'magic.html', {})
 
 def EmailloginView(request):
-          
+
     if request.method == "GET":
         form = LoginForm()
         

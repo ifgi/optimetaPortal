@@ -3,11 +3,6 @@ from datetime import date, timezone
 from publications.models import Publication
 from django.core.mail import send_mail
 
-Schedule.objects.create(
-    func='publications.views.get_info',
-    schedule_type=Schedule.DAILY
-)
-
 def new_manuscript_updates():
     """
     send email for manuscript updates
