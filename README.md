@@ -123,9 +123,12 @@ Superusers/admin can be created  using the createsuperuser command:
 python manage.py createsuperuser --username=joe --email=joe@example.com
 ```
 
-You will be prompted for a password. After you enter one, the user will be created immediately. If you leave off the --username or --email options, it will prompt you for those values.
+You will be prompted for a password.
+After you enter one, the user will be created immediately. If you leave off the --username or --email options, it will prompt you for those values.
 
 You can acess the admin page at <http://127.0.0.1:8000/admin/>.
+
+You can also run the command in a containerised app with `docker-compose run web python manage.py ...`.
 
 ### Run tests
 

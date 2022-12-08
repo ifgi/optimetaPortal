@@ -38,6 +38,8 @@ DEBUG = env('OPTIMAP_DEBUG', default=True)
 
 ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
 
+OPTIMAP_SUPERUSER_EMAILS = [i.strip('[]') for i in env('OPTIMAP_SUPERUSER_EMAILS', default='').split(',')]
+
 ROOT_URLCONF = 'optimetaPortal.urls'
 
 AUTHENTICATION_BACKENDS = [
@@ -55,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'rest_framework',
     'rest_framework_gis',
-    'publications',    
+    'publications',
     'django_q',
 ]
 
@@ -111,7 +113,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',

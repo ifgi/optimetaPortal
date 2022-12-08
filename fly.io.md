@@ -118,10 +118,16 @@ flyctl secrets list
 flyctl secrets set SECRET_KEY="..."
 ```
 
-Configure **email** password:
+Configure **login email** password (other values are set in `fly.toml`):
 
 ```bash
-flyctl secrests set OPTIMAP_EMAIL_HOST_PASSWORD="..."
+flyctl secrets set OPTIMAP_EMAIL_HOST_PASSWORD="..."
+```
+
+Configure the **superusers' email** (users registering with this emailaddress will become Django superusers):
+
+```bash
+flyctl secrets set OPTIMAP_SUPERUSER_EMAILS="..."
 ```
 
 ## Deploy
