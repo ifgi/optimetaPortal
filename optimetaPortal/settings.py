@@ -59,7 +59,24 @@ INSTALLED_APPS = [
     'rest_framework_gis',
     'publications',
     'django_q',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# https://github.com/tfranzel/drf-spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OPTIMAP API',
+    'DESCRIPTION': 'OPTIMAP provides geospatial metadata for scientific publications.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+}
 
 Q_CLUSTER = {
     'name': 'optimeta',
@@ -132,7 +149,7 @@ ROOT_URLCONF = 'optimetaPortal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['publications/static/templates'],
+        'DIRS': ['publications/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,6 +157,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'optimetaPortal.urls.site',
             ],
         },
     },

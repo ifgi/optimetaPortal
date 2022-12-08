@@ -5,113 +5,122 @@
 
 <ul class="nav navbar-nav ml-auto">
   {% if user.is_authenticated %}
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown" href="#"id="navbarDarkDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-        <i class="fa fa-user-circle fa-3x"></i> 
-      </a>
-      <ul class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDarkDropdown">
-        <a class="dropdown-item" >{{user.email}}</a>
-        <div class="dropdown-divider"></div>
-        <li><a class="dropdown-item" href="{% url 'publications:usersettings' %}">Settings</a></li>
-        <li><a class="dropdown-item" href="{% url 'publications:subscriptions' %}">Subscription</a></li>
-        <li><a class="dropdown-item" href="{% url 'publications:logout' %}">Logout</a></li>
-      </ul>
-    </li>
-    {% else %}
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown" href="#" id="navbarDarkDropdown1" role="button" data-toggle="dropdown"
-        aria-expanded="false">
-        <i class="fa fa-user-circle fa-3x"></i>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDarkDropdown1">
-        <span class="dropdown-item-text">New around here? Please login to create a new account.</span>
-        <div class="dropdown-divider"></div>
-        <li class="px-3 py-2">
-          <form class="form" method="POST" action="{% url 'publications:loginres' %}">
-            {% csrf_token %}
-            <div class="form-group">
-              <input id="email" placeholder="Email" class="form-control form-control-sm" type="email" required=""
-                name="email">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
-          </form>
-        </li>
-      </ul>
-    </li>
-  {% endif %}  
-{% endblock %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown" href="#" id="navbarDarkDropdown" role="button" data-toggle="dropdown"
+      aria-expanded="false">
+      <i class="fa fa-user-circle fa-3x"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDarkDropdown">
+      <a class="dropdown-item">{{user.email}}</a>
+      <div class="dropdown-divider"></div>
+      <li><a class="dropdown-item" href="{% url 'optimap:usersettings' %}">Settings</a></li>
+      <li><a class="dropdown-item" href="{% url 'optimap:subscriptions' %}">Subscription</a></li>
+      <li><a class="dropdown-item" href="{% url 'optimap:logout' %}">Logout</a></li>
+    </ul>
+  </li>
+  {% else %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown" href="#" id="navbarDarkDropdown1" role="button" data-toggle="dropdown"
+      aria-expanded="false">
+      <i class="fa fa-user-circle fa-3x"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDarkDropdown1">
+      <span class="dropdown-item-text">New around here? Please login to create a new account.</span>
+      <div class="dropdown-divider"></div>
+      <li class="px-3 py-2">
+        <form class="form" method="POST" action="{% url 'optimap:loginres' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <input id="email" placeholder="Email" class="form-control form-control-sm" type="email" required=""
+              name="email">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </li>
+  {% endif %}
+  {% endblock %}
 
-{% block content %}
-<div class="accordion" id="accordionExample">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Change email
-          </button>
-        </h2>
-      </div>
-  
-      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">          
-            <form class="formchange" method="POST" action="{% url 'publications:changeuser' %}">
+  {% block content %}
+  <div class="row justify-content-center">
+    <div class="col-4 py-5">
+
+      <div class="accordion m-5" id="user_settings">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Change email
+              </button>
+            </h2>
+          </div>
+
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#user_settings">
+            <div class="card-body">
+              <form class="formchange" method="POST" action="{% url 'optimap:changeuser' %}">
                 {% csrf_token %}
-                <div class="form-group row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">Your Current Email</label>
-                  <div class="col-sm-10">
+                <div class="form-group row px-3">
+                  <label for="staticEmail" class="col-form-label">Current email</label>
+                  <div class="col">
                     <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.email}}">
                   </div>
-                </div>          
-                <div class="form-group">
-                  <input id="email_new" placeholder="Enter your new email" class="form-control form-control-sm" type="email" required="" name="email_new">                
-                </div>                
-                <div class="form-group row">
+                </div>
+                <div class="form-group row px-3">
+                  <input id="email_new" placeholder="Enter your new email" class="form-control form-control-sm"
+                    type="email" required="" name="email_new">
+                </div>
+                <div class="form-group row px-3">
                   <button type="submit" class="btn btn-outline-warning">Save Changes</button>
                   <div class="col-sm-2">
                     <button type="reset" class="btn btn-outline-danger">Cancel</button>
                   </div>
-                  
                 </div>
-            </form>
-            
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header" id="headingTwo">
-        <h2 class="mb-0">
-          <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Delete account
-          </button>
-        </h2>
-      </div>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-        <div class="card-body">
-          
-            <p>Deleting account is permenant.It cannot be reversed.</p>
-          
-          <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal1" aria-expanded="false">Delete Account</button>
-         
-          <div id ="modal1" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Delete Account</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Do you really want to delete this account ?</p>
-                </div>
-                <div class="modal-footer">
-                  <form action="{% url 'publications:delete' %}" method="post">
-                  {% csrf_token %}
-                  <button type="submit"  class="btn btn-primary" name='dltbutton'>Delete</button>
-                  </form>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Delete account
+              </button>
+            </h2>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#user_settings">
+            <div class="card-body">
+
+              <p>Deleting account is permenant. It cannot be reversed.</p>
+
+              <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal1"
+                aria-expanded="false">Delete Account</button>
+
+              <div id="modal1" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Delete Account</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Do you really want to delete this account ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action="{% url 'optimap:delete' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary" name='dltbutton'>Delete</button>
+                      </form>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,6 +128,5 @@
         </div>
       </div>
     </div>
-</div>
-{% endblock %}
-
+  </div>
+  {% endblock %}

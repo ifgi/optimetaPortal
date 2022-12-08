@@ -16,14 +16,14 @@ class PrivacypageTests(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_url_available_by_name(self):  
-        response = self.client.get(reverse("publications:privacy"))
+        response = self.client.get(reverse("optimap:privacy"))
         self.assertEqual(response.status_code, 200)
 
     def test_template_name_correct(self):  
-        response = self.client.get(reverse("publications:privacy"))
+        response = self.client.get(reverse("optimap:privacy"))
         self.assertTemplateUsed(response, "privacy.html")
 
     def test_template_content(self):
-        response = self.client.get(reverse("publications:privacy"))
+        response = self.client.get(reverse("optimap:privacy"))
         self.assertContains(response, "Privacy policy")
 

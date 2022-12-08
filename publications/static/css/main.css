@@ -92,7 +92,29 @@ main {
   border-color: #9B2115;
 }
 
+.btn-outline-danger {
+  color: #9B2115;
+  border-color: #9B2115;
+}
+
+.btn-outline-danger:hover {
+  color: #ffffff;
+  background-color: #9B2115;
+  border-color: #9B2115;
+}
+
 .btn-warning {
+  background-color: #9B7115;
+  border-color: #9B7115;
+}
+
+.btn-outline-warning {
+  color: #9B7115;
+  border-color: #9B7115;
+}
+
+.btn-outline-warning:hover {
+  color: #ffffff;
   background-color: #9B7115;
   border-color: #9B7115;
 }
@@ -100,6 +122,17 @@ main {
 .btn-info {
   background-color: #158F9B;
   border-color: #158F9B;
+}
+
+.btn-link {
+  font-weight: 400;
+  color: #158F9B;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #278189;
+  text-decoration: underline;
 }
 
 /* have top-right map UI below the login/user menu */
