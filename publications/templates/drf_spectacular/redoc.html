@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenAPI Documentation | OPTIMAP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+
+    <!-- Theming/CSS: https://redocly.com/docs/api-reference-docs/configuration/theming/ -->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    {% if settings %}
+    <div id="redoc-container"></div>
+    <script src="{{ dist }}/bundles/redoc.standalone.js"></script>
+    <script>
+        const redocSettings = {{ settings| safe }};
+        Redoc.init("{{ schema_url }}", redocSettings, document.getElementById('redoc-container'))
+    </script>
+    {% else %}
+    <redoc spec-url="{{ schema_url }}"></redoc>
+    <script src="{{ dist }}/bundles/redoc.standalone.js"></script>
+    {% endif %}
+</body>
+
+</html>

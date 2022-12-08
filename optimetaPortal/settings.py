@@ -76,6 +76,53 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
+    # https://github.com/Redocly/redoc#redoc-options-object
+    'REDOC_UI_SETTINGS': {
+        # https://github.com/Redocly/redoc#redoc-theme-object
+        'theme': {
+            'sidebar': {
+                # 'backgroundColor': '#ff0000',
+            },
+            'colors': {
+                'primary': {
+                    'main': '#158F9B',
+                    'light': '#B9F0F6'
+                },
+                "http": {
+                    "get": "#158F9B",
+                    "post": "#3C159B",
+                    "put": "#3C159B",
+                    "delete": "#9B2115"
+                },
+                "success": {
+                    "main": "#158F9B",
+                    "light": "#9B7115",
+                    "dark": "#3C159B",
+                    "contrastText": "#000"
+                },
+                "text": {
+                    "primary": "rgba(0, 0, 0, 1)",
+                    "secondary": "#158F9B"
+                },
+            },
+            "typography": {
+                "heading1": {
+                    "color": "#158F9B",
+                },
+                "heading2": {
+                    "color": "#158F9B",
+                },
+                "heading3": {
+                    "color": "#158F9B",
+                },
+                "links": {
+                    "color": "#158F9B",
+                    "visited": "#158F9B",
+                    "hover": "#3C159B"
+                }
+            },
+        }
+    },
 }
 
 Q_CLUSTER = {
