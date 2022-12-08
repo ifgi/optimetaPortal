@@ -26,9 +26,13 @@ A complete list of existing parameters is provided in the file `optimetaPortal/.
 
 ```bash
 docker-compose up
+
+# run migrations, in the directory where docker-compose is to resolve the name "web"
+docker-compose run web python manage.py makemigrations
+docker-compose run web python manage.py migrate
 ```
 
-Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
+Now open a browser at <http://localhost:8000/>.
 
 ## Development
 
@@ -65,6 +69,9 @@ docker run --name optimetaPortalDB -p 5432:5432 -e POSTGRES_USER=optimeta -e POS
 # run migrations
 python manage.py makemigrations
 python manage.py migrate
+
+# collect static files
+python manage.py collectstatic --noinput
 
 # start app
 python manage.py runserver
@@ -115,9 +122,13 @@ Superusers/admin can be created  using the createsuperuser command:
 ```bash
 python manage.py createsuperuser --username=joe --email=joe@example.com
 ```
-You will be prompted for a password. After you enter one, the user will be created immediately. If you leave off the --username or --email options, it will prompt you for those values.
 
-You can acess the admin page at <http://127.0.0.1:8000/admin/> . 
+You will be prompted for a password.
+After you enter one, the user will be created immediately. If you leave off the --username or --email options, it will prompt you for those values.
+
+You can acess the admin page at <http://127.0.0.1:8000/admin/>.
+
+You can also run the command in a containerised app with `docker-compose run web python manage.py ...`.
 
 ### Run tests
 
@@ -136,8 +147,10 @@ python manage.py test tests
 python -Wa manage.py test
 
 # running UI tests needs either compose configuration or a manage.py runserver in a seperate shell
-docker-compose up
+docker-compose up --build
+
 # TODO insert test data
+
 python -Wa manage.py test tests-ui
 ```
 
@@ -173,6 +186,10 @@ A configuration to debug the test code and also print deprecation warnings:
 Change the argument `tests` to `tests-ui` to run the UI tests.
 
 See also documentation at <https://code.visualstudio.com/docs/python/tutorial-django>.
+
+## Deploy
+
+Deploy using docker-compose or see [`fly.io.md`](fly.io.md) for notes on deploying to Fly.io.
 
 ## License
 

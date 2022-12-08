@@ -22,3 +22,14 @@ urlpatterns = [
     path('', include('publications.urls')),
     ]
 
+# https://stackoverflow.com/a/18272203/261210
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.functional import SimpleLazyObject
+
+def site(request):
+    protocol = 'https' if request.is_secure() else 'http'
+    site = SimpleLazyObject(lambda: "{0}://{1}".format(protocol, get_current_site(request)))
+    
+    return {
+        'site': site
+    }

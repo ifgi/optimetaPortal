@@ -1,8 +1,8 @@
 {% extends "main.html" %}
 
 {% block alert %}
-<div class="alert alert-primary m-3" role="alert">
+<div class="alert alert-{{ error.class }} m-3" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-  <strong>Logged out!</strong> You have been succesfully logged out.
+  <strong>{{ error.title }}</strong> {{ error.text }}
 </div>
 {% endblock %}

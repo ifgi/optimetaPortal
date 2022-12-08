@@ -132,3 +132,5 @@ main.py
 geodjango/
 
 tests-ui/screenshots/
+
+static/

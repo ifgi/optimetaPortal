@@ -8,6 +8,12 @@ wget https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js -P js
 wget https://unpkg.com/leaflet@1.9.2/dist/leaflet.js -P js/
 ```
 
+Required for Bootstrap tooltips in REST Framework UI:
+
+```bash
+wget https://unpkg.com/@popperjs/core@2 -O js/popper.js
+```
+
 ## CSS file sources
 
 ```bash
