@@ -1,5 +1,47 @@
 {% extends "rest_framework/base.html" %}
 
+{% load static %}
+
+<!-- https://github.com/encode/django-rest-framework/blob/master/rest_framework/templates/rest_framework/base.html -->
+
+{% block meta %}
+{{ block.super }}
+
+<link rel="icon" type="image/png" href="/static/favicon.png">
+{% endblock meta %}
+
+{% block title %}OPTIMAP REST API{% endblock title %}
+
+{% block bootstrap_theme %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/rest_framework_tweaks.css' %}" />
+{% endblock bootstrap_theme %}
+
 {% block branding %}
-    <h3 style="margin: 0 0 20px;">OPTIMAP</h3>
-{% endblock %}
+<img src="{% static 'optimap_logo_w.svg' %}" width="90" height="20" alt="OPTIMAP logo">
+{% endblock branding %}
+
+{% block script %}
+{% include 'footer.html' %}
+
+<script type="application/json" id="drf_csrf">
+    {
+        "csrfHeaderName": "{{ csrf_header_name|default:'X-CSRFToken' }}",
+        "csrfToken": "{% if request %}{{ csrf_token }}{% endif %}"
+    }
+</script>
+<script src="{% static 'rest_framework/js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'rest_framework/js/ajax-form.js' %}"></script>
+<script src="{% static 'rest_framework/js/csrf.js' %}"></script>
+<script src="{% static 'js/popper.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'rest_framework/js/prettify-min.js' %}"></script>
+<script src="{% static 'rest_framework/js/default.js' %}"></script>
+<script type="text/javascript">
+    // https://github.com/encode/django-rest-framework/blob/master/rest_framework/static/rest_framework/js/load-ajax-form.js
+    $(document).ready(function () {
+        $('form').ajaxForm();
+    });
+</script>
+{% endblock script %}

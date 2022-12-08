@@ -149,7 +149,7 @@ ROOT_URLCONF = 'optimetaPortal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['publications/static/templates'],
+        'DIRS': ['publications/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
