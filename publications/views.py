@@ -1,64 +1,24 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import login
-from django.shortcuts import render,redirect
-from django.views.generic import TemplateView
+from django.shortcuts import render
 from django.core.cache import cache
 from django.http.request import HttpRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
-from .forms import LoginForm
-from django.http import HttpResponse
-from django.core.mail import send_mail, BadHeaderError
-from django.core.cache import cache
+from django.core.mail import send_mail
 import secrets
 from django.contrib import messages
-from django.core import signing
-from django.contrib.auth import login, get_user_model,logout
+from django.contrib.auth import login,logout
 from django.views.decorators.http import require_GET
 from django.contrib.auth.models import User
-from django.core import signing
-from django.urls import reverse
-from urllib.parse import urlencode
 from django.conf import settings
 
 LOGIN_TOKEN_LENGTH  = 32
 LOGIN_TOKEN_TIMEOUT = 10 * 60
 
-def EmailloginView(request):
-
-    if request.method == "GET":
-        form = LoginForm()
-
-    else:
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data["email"]
-            subject = 'Test Email'
-            data = {"email":email}
-            link = signing.dumps(data)
-
-            message =f"""Hello,You requested that we send you a link to log in to our app:    {link}   """
-            try:
-                send_mail(subject, message, from_email= settings.EMAIL_HOST_USER,recipient_list=[email])
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return redirect("/success/")
-    return render(request, "dashboard.html", {"form": form})
-
-def successView(request):
-    return HttpResponse("Success! We sent a log in link. Check your email.")
 
 def optimap(request):
-    if 'logged_in' in request.COOKIES and 'username' in request.COOKIES:
-        context = {
-                'useremail':request.COOKIES['useremail'],
-                'login_status':request.COOKIES.get('logged_in_status'),
-            }
-        response = render(request,"main.html",context)
-    else:
-        response = render(request,"main.html")
-
-    return response
+    return render(request,"main.html")
 
 def loginres(request):
     email = request.POST.get('email', False)
@@ -125,8 +85,8 @@ def delete_account(request):
 def change_useremail(request):
     email_new = request.POST.get('email_new', False)
     currentuser = request.user
-    email_old = currentuser.email
-
+	email_old = currentuser.email
+    
     if email_new:
         currentuser.email = email_new
         currentuser.username = email_new

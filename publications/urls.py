@@ -1,7 +1,7 @@
 """OPTIMAP urls."""
 
 from django.urls import path,include
-from publications.views import successView,privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail,data
+from publications.views import privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail,data
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
@@ -16,7 +16,6 @@ urlpatterns = [
     path("data/", data, name="data"),
     path('feed/rss', OptimetaFeed(), name="GeoRSSfeed"), 
     path("feed/atom", atomFeed(), name="GeoAtomfeed"),
-    path("success/",successView, name="success"),
     path("loginres/",loginres,name="loginres"),
     path("privacy/",privacypolicy,name="privacy"),
     path("loginconfirm/",Confirmationlogin,name="loginconfirm"),
