@@ -19,7 +19,7 @@ async function initMap() {
         //"Esri World Imagery": esriWorldImageryLayer
     };
 
-    publicationsGroup = new L.FeatureGroup();
+    var publicationsGroup = new L.FeatureGroup();
     map.addLayer(publicationsGroup);
 
     var overlayMaps = {
@@ -42,9 +42,19 @@ async function initMap() {
 }
 
 function publicationPopup(feature, layer) {
-    var popupContent = '<h3>'+ feature.properties['title']+'</h3>' +
-        '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'+
-        '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
+    var popupContent = '';
+    if (feature.properties['title']) {
+        popupText += '<h3>'+ feature.properties['title']+'</h3>'
+    }
+
+    if (feature.properties['abstract']) {
+        popupText += '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'
+    }
+    
+    if (feature.properties['url']) {
+        console.log(feature.properties.url)
+        popupText += '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
+    } 
 
     if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
@@ -63,5 +73,6 @@ async function load_publications() {
 $(function () {
     initMap();
 });
+
 
 
