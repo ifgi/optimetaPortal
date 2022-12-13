@@ -44,16 +44,15 @@ async function initMap() {
 function publicationPopup(feature, layer) {
     var popupContent = '';
     if (feature.properties['title']) {
-        popupText += '<h3>'+ feature.properties['title']+'</h3>'
+        popupContent += '<h3>'+ feature.properties['title']+'</h3>'
     }
 
     if (feature.properties['abstract']) {
-        popupText += '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'
+        popupContent += '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'
     }
     
-    if (feature.properties['url']) {
-        console.log(feature.properties.url)
-        popupText += '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
+    if (feature.properties['url']) {       
+        popupContent += '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
     } 
 
     if (feature.properties && feature.properties.popupContent) {
