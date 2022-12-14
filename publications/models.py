@@ -10,7 +10,7 @@ class Publication(models.Model):
        
     title = models.CharField(max_length=4096)
     abstract = models.TextField( null=True)
-    publicationDate = models.DateField(null=True,Blank = True)
+    publicationDate = models.DateField(null=True)
     doi = models.CharField(max_length=1024, null=True)
     url = models.URLField(max_length=1024, null=True)
     geometry = models.GeometryCollectionField(verbose_name='Publication geometry (Points, Lines, Polygons as GeoJSON)',srid = 4326, null=True, blank=True)
@@ -30,7 +30,7 @@ class OJSservers(models.Model):
     harvest_interval_minutes = models.IntegerField(default=60*24*3)
     last_harvest = models.DateTimeField(auto_now_add=True,null=True)
     
-class Subscription(models.model):
+class Subscription(models.Model):
     search_text = models.CharField(max_length=4096)
     timeperiod_startdate = models.DateField(null=True)
     timeperiod_enddate = models.DateField(null=True)
