@@ -47,13 +47,17 @@ function publicationPopup(feature, layer) {
         popupContent += '<h3>'+ feature.properties['title']+'</h3>'
     }
 
+    if (feature.properties['timeperiod_startdate'] && feature.properties['timeperiod_enddate']) {       
+        popupContent += '<l>' + '<b>' + "Timeperiod : " + '</b>' + "&nbsp;"+ "from" + "&nbsp;"+ feature.properties['timeperiod_startdate'] + "&nbsp;" + "to" + "&nbsp;" + feature.properties['timeperiod_enddate'] +'</l>' +'<br>';
+    }     
+
     if (feature.properties['abstract']) {
-        popupContent += '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'
+        popupContent += '<p>'+ feature.properties['abstract']+ '</p>'+'<br>'
     }
     
     if (feature.properties['url']) {       
         popupContent += '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
-    } 
+    }  
 
     if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
