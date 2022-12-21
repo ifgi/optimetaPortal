@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.shortcuts import render
 from django.core.cache import cache
 from django.http.request import HttpRequest
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
 from django.core.mail import send_mail
@@ -12,6 +13,8 @@ from django.contrib.auth import login,logout
 from django.views.decorators.http import require_GET
 from django.contrib.auth.models import User
 from django.conf import settings
+from publications.models import Subscription
+from datetime import datetime
 
 LOGIN_TOKEN_LENGTH  = 32
 LOGIN_TOKEN_TIMEOUT = 10 * 60
@@ -73,7 +76,24 @@ def user_settings(request):
     return render(request,'user_settings.html')
 
 def user_subscriptions(request):
-    return render(request,'subscriptions.html')
+    subs = Subscription.objects.all()
+    count_subs = Subscription.objects.all().count()
+    return render(request,'subscriptions.html',{'sub':subs,'count':count_subs})
+
+def add_subscriptions(request):
+    if request.method == "POST":
+        search_term = request.POST.get("search", False)
+        start_date = request.POST.get('start_date', False)
+        end_date = request.POST.get('end_date', False)
+        currentuser = request.user
+        user_name = currentuser.username
+        start_date_object = datetime.strptime(start_date, '%m/%d/%Y')
+        end_date_object = datetime.strptime(end_date, '%m/%d/%Y')
+        
+        # save info in db
+        subscription = Subscription(search_text = search_term ,timeperiod_startdate = start_date_object,timeperiod_enddate = end_date_object, user_name = user_name )
+        subscription.save()
+        return  HttpResponseRedirect('/subscriptions/')
 
 def delete_account(request):
     email = request.user.email
