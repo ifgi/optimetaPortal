@@ -1,15 +1,11 @@
-from django.db import models
-"""Markers models."""
-
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import ArrayField
 
 
 class Publication(models.Model):
-    """A marker with name and location."""
-       
-    title = models.CharField(max_length=4096)
-    abstract = models.TextField( null=True)
+          
+    title = models.CharField(max_length=4096,null =True)
+    abstract = models.TextField(null=True)
     publicationDate = models.DateField(null=True)
     doi = models.CharField(max_length=1024, null=True)
     url = models.URLField(max_length=1024, null=True)
@@ -36,3 +32,11 @@ class Subscription(models.Model):
     timeperiod_enddate = models.DateField(null=True)
     search_area = models.GeometryCollectionField(null=True, blank=True)
     user_name = models.CharField(max_length=4096)
+
+    def __str__(self):
+        """Return string representation."""
+        return self.search_text
+
+    class Meta:
+        ordering = ['user_name']
+        verbose_name = "subscription"
