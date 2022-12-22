@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //to trigger datepicker 
 $(function () {
     $('#datepicker1').datepicker({
@@ -138,6 +137,3 @@ rendersubscriptions();
 
 
 
-
-
->>>>>>> 8ec5079829870d97714f0ff62707c96ca533c536
