@@ -41,12 +41,12 @@ class SimpleTest(TestCase):
         self.assertEqual(body['type'], 'FeatureCollection')
         self.assertEqual(len(body['features']), 2)
 
-        self.assertEqual(len(body['features'][0]['properties']), 5)
+        self.assertEqual(len(body['features'][0]['properties']), 9)
         self.assertEqual(body['features'][0]['properties']['title'], 'Publication One')
         self.assertEqual(body['features'][0]['properties']['publicationDate'], '2022-10-10')
 
     def test_api_publication_1(self):
-        response = self.client.get('/api/publications/1/')
+        response = self.client.get('/api/publications/3/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('Content-Type'), 'application/json')
 

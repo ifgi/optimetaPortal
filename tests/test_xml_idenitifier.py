@@ -5,10 +5,10 @@ from bs4 import BeautifulSoup
 from publications.tasks import parse_html
 import xml.dom.minidom
 
-
 class SimpleTest(TestCase):
 
-    def parse_xml(dom):
+    def parse_xml(self,doc):
+        dom = xml.dom.minidom.parseString(doc)
         collection = dom.documentElement
         articles = collection.getElementsByTagName("dc:identifier") 
         identifier_value = articles[0].firstChild.nodeValue
@@ -37,8 +37,8 @@ class SimpleTest(TestCase):
             </oai_dc:dc>
         </metadata>              
         """        
-        dom = xml.dom.minidom.parseString(xml_doc)
-        url_link = SimpleTest.parse_xml(dom)
+        
+        url_link = SimpleTest.parse_xml(self,xml_doc)
 
         httpretty.enable(verbose=True, allow_net_connect=False)  # enable HTTPretty so that it will monkey patch the socket module
         httpretty.register_uri(httpretty.GET, "http://localhost:8330/index.php/opti-geo/article/view/1",

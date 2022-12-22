@@ -29,4 +29,4 @@ class SimpleTest(TestCase):
 
         self.soup = BeautifulSoup(html_doc, 'html.parser')
         self.json_object = parse_html(self.soup)
-        self.assertIsNone(self.json_object)
+        self.assertEqual(len(self.json_object),0)

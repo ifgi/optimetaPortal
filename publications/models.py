@@ -13,8 +13,8 @@ class Publication(models.Model):
     journal = models.CharField(max_length=1024, null=True)
     creationDate = models.DateTimeField(auto_now_add=True,null=True)
     lastUpdate = models.DateTimeField(auto_now=True,null=True)
-    timeperiod_startdate = ArrayField(models.DateField(null=True))
-    timeperiod_enddate = ArrayField(models.DateField(null=True))
+    timeperiod_startdate = ArrayField(models.DateField(null=True), null=True)
+    timeperiod_enddate = ArrayField(models.DateField(null=True), null=True)
 
     def __str__(self):
         """Return string representation."""
