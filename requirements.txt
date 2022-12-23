@@ -1,7 +1,7 @@
 
 arrow==1.2.3
 asgiref==3.5.2
-backports.zoneinfo==0.2.1
+backports.zoneinfo==0.2.1;python_version<"3.9"
 blessed==1.19.1
 beautifulsoup4==4.11.1
 certifi==2022.9.24
