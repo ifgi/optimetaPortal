@@ -105,7 +105,7 @@ def delete_account(request):
 def change_useremail(request):
     email_new = request.POST.get('email_new', False)
     currentuser = request.user
-	email_old = currentuser.email
+    email_old = currentuser.email
     
     if email_new:
         currentuser.email = email_new
