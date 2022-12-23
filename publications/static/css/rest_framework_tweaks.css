@@ -1,0 +1,133 @@
+/*
+https://github.com/encode/django-rest-framework/blob/master/rest_framework/static/rest_framework/css/bootstrap-tweaks.css
+*/
+
+ul.breadcrumb {
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.breadcrumb li.active a {
+    color: #777;
+    padding: 0 10px;
+}
+
+body a {
+    color: #158F9B;
+}
+
+body a:hover {
+    color: #278189;
+}
+
+.pagination>.disabled>a,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>a:focus {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.pager>.disabled>a,
+.pager>.disabled>a:hover,
+.pager>.disabled>a:focus {
+    pointer-events: none;
+}
+
+.pager .next {
+    margin-left: 10px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-top: 60px;
+    margin: -60px 0;
+    min-height: 100%;
+}
+
+.form-switcher {
+    margin-bottom: 0;
+}
+
+.well {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.well .form-actions {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.well form {
+    margin-bottom: 0;
+}
+
+.nav-tabs {
+    border: 0;
+}
+
+.nav-tabs>li {
+    float: right;
+}
+
+.nav-tabs li a {
+    margin-right: 0;
+}
+
+.nav-tabs>.active>a {
+    background: #F5F5F5;
+}
+
+.nav-tabs>.active>a:hover {
+    background: #F5F5F5;
+}
+
+.tabbable.first-tab-active .tab-content {
+    border-top-right-radius: 0;
+}
+
+.page-header {
+    border-bottom: none;
+    padding-bottom: 0px;
+    margin: 0;
+}
+
+/* custom general page styles */
+.hero-unit h1, .hero-unit h2 {
+    color: #A30000;
+}
+
+
+.request-info {
+    clear: both;
+}
+
+.horizontal-checkbox label {
+    padding-top: 0;
+}
+
+.horizontal-checkbox label {
+    padding-top: 0 !important;
+}
+
+.horizontal-checkbox input {
+    float: left;
+    width: 20px;
+    margin-top: 3px;
+}
+
+.modal-footer form {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pagination {
+    margin: 5px 0 10px 0;
+}
