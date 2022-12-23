@@ -13,7 +13,7 @@ class Publication(models.Model):
     abstract = models.TextField(null=True, blank=True)
     doi = models.CharField(max_length=1024, null=True, blank=True)
     url = models.URLField(max_length=1024, null=True, blank=True)
-    geometry = models.GeometryCollectionField(verbose_name='Publication geometry (Points, Lines, Polygons as GeoJSON)',srid = 4326, null=True, blank=True)
+    geometry = models.GeometryCollectionField(verbose_name='Publication geometry/ies', srid = 4326, null=True, blank=True)
     journal = models.CharField(max_length=1024, null=True, blank=True)
     timeperiod_startdate = ArrayField(models.DateField(null=True), null=True, blank=True)
     timeperiod_enddate = ArrayField(models.DateField(null=True), null=True, blank=True)

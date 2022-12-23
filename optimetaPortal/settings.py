@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_q',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'leaflet' # used in admin site
 ]
 
 REST_FRAMEWORK = {
