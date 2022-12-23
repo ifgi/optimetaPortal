@@ -46,7 +46,7 @@ The folder `/fixtures` contains some test data, either as an SQL command to inse
 python manage.py dumpdata --exclude=auth --exclude=contenttypes | jq > fixtures/test_data.json
 
 # load:
-python manage.py loaddata fixtures/test_data.json
+python manage.py loaddata fixtures/test_data.sql
 ```
 
 ### Run locally
@@ -148,8 +148,6 @@ python -Wa manage.py test
 
 # running UI tests needs either compose configuration or a manage.py runserver in a seperate shell
 docker-compose up --build
-
-# TODO insert test data
 
 python -Wa manage.py test tests-ui
 ```
