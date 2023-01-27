@@ -11,7 +11,7 @@ class PublicationSerializer(serializers.GeoFeatureModelSerializer):
     class Meta:
         """publication serializer meta class."""
         model = Publication
-        fields = ("title" ,"abstract", "publicationDate", "url", "doi","creationDate", "lastUpdate","timeperiod_startdate","timeperiod_enddate")
+        fields = ("id", "title" ,"abstract", "publicationDate", "url", "doi","creationDate", "lastUpdate","timeperiod_startdate","timeperiod_enddate")
         geo_field = "geometry"
         auto_bbox = True      
        

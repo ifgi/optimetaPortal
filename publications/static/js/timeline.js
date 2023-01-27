@@ -1,9 +1,9 @@
 
 async function getarticle() {
-    const publications_url = '/api/publications/'
     try {
-        let res = await fetch(publications_url);
-        return await res.json();
+        let response = await fetch(publications_url);
+        let body = await response.json();
+        return body.results;
     } catch (error) {
         console.log(error);
     }
@@ -11,7 +11,7 @@ async function getarticle() {
 
 async function renderarticle() {
     let data = await getarticle();
-    console.log('Type:',data.features[0].properties['publicationDate'])
+    console.log('Type:', data.features[0].properties['publicationDate'])
     const f = data.features.length
     for (var index = 0; index < f ; ++index){
         document.getElementById("timeline").innerHTML += '<li>' +'<a href="#">' +  data.features[index].properties['title'] + "-" + data.features[index].properties['publicationDate'] +'</a>'+ '</li>';
