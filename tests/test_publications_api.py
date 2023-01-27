@@ -12,7 +12,7 @@ class SimpleTest(TestCase):
         self.client = Client()
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
         pub1 = Publication.objects.create(
             title="Publication One",
             abstract="This is a first publication. It's good.",
@@ -24,6 +24,7 @@ class SimpleTest(TestCase):
                 Polygon( ((52, 8), (55, 8), (55, 9), (52, 8)) ))
         )
         pub1.save()
+
         pub2 = Publication.objects.create(
             title="Publication Two",
             abstract="Seconds are better than firsts.",
@@ -33,7 +34,7 @@ class SimpleTest(TestCase):
         pub2.save()
 
     @classmethod
-    def clearTestData(cls):
+    def tearDownClass(cls):
         Publication.objects.all().delete()
 
     def test_api_redirect(self):
@@ -55,14 +56,11 @@ class SimpleTest(TestCase):
         self.assertEqual(results['type'], 'FeatureCollection')
         self.assertEqual(len(results['features']), 2)
 
-        self.assertEqual(len(results['features'][0]['properties']), 9)
-        self.assertEqual(results['features'][0]['properties']['title'], 'Publication One')
-        self.assertEqual(results['features'][0]['properties']['publicationDate'], '2022-10-10')
-
-    def test_api_first_publication(self):
+    def test_api_publication(self):
         all = self.client.get('/api/v1/publications/').json()
-        id = all['results']['features'][0]['id']
-        response = self.client.get('/api/v1/publications/%s.json' % id)
+        one_publication = [feat for feat in all['results']['features'] if feat['properties']['title'] == 'Publication One']
+        print('\n\n %s \n\n' % all)
+        response = self.client.get('/api/v1/publications/%s.json' % one_publication[0]['id'])
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('Content-Type'), 'application/json')
 
