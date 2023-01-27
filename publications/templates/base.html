@@ -25,11 +25,13 @@
 	<!--Navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark nav-fill w-100">
 		<div class="container-fluid">
-			<ul class="nav navbar-nav mr-auto ">
+			<div class="nav navbar-nav mr-auto">
 				<a class="navbar-brand" href="/">
-					<img src="{% static 'optimap_logo_w.svg' %}" width="90" height="100" alt="OPTIMAP logo">
+					<img src="{% static 'optimap_logo_w.svg' %}" width="100" alt="OPTIMAP logo">
 				</a>
-			</ul>
+
+				<span class="text-white tagline">Discover Research. Optimized. On a map.</span>
+			</div>
 
 			{% block navbar %}{% endblock %}
 		</div>

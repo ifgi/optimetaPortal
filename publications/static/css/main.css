@@ -18,6 +18,13 @@ main {
   background-color: #158F9B;
 }
 
+.tagline {
+  font-weight: 800;
+  font-size: 1.6em;
+  box-sizing: unset;
+  font-style: italic;
+}
+
 #sidebar {
   float: left;
   height: 100%;
