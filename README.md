@@ -80,7 +80,7 @@ python manage.py runserver
 OPTIMAP_CACHE=dummy OPTIMAP_DEBUG=True python manage.py runserver
 ```
 
-Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
+Now open a browser at <http://127.0.0.1:8000/>.
 
 ### Debug with VS Code
 
