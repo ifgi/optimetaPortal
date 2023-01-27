@@ -40,6 +40,8 @@ ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
 
 OPTIMAP_SUPERUSER_EMAILS = [i.strip('[]') for i in env('OPTIMAP_SUPERUSER_EMAILS', default='').split(',')]
 
+TEST_HARVESTING_ONLINE = env('OPTIMAP_TEST_HARVESTING_ONLINE', default=False)
+
 ROOT_URLCONF = 'optimetaPortal.urls'
 
 AUTHENTICATION_BACKENDS = [
