@@ -12,7 +12,10 @@ app_name = "optimap"
 urlpatterns = [
     path('', optimap, name="home"),
     path('favicon.ico', lambda request: redirect('static/favicon.ico', permanent=True)),
-    path("api/", include("publications.api")),
+    path("api", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/v1", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/v1/", include("publications.api")),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/ui/', SpectacularRedocView.as_view(url_name='optimap:schema'), name='redoc'),
     path("data/", data, name="data"),

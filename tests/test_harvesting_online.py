@@ -17,7 +17,7 @@ class SimpleTest(TestCase):
     
     @unittest.skipIf(settings.TEST_HARVESTING_ONLINE != True, "going online for harvesting is not activated")
     def test_api_root(self):
-        response = self.client.get('/api/publications/')
+        response = self.client.get('/api/v1/publications/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('Content-Type'), 'application/json')
 
