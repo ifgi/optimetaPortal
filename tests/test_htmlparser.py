@@ -55,5 +55,5 @@ class SimpleTest(TestCase):
         geom_object = extract_geometry_from_html(soup)
         period_start, period_end = extract_timeperiod_from_html(soup)
         self.assertIsNone(geom_object)
-        self.assertEquals(period_start, [None])
-        self.assertEquals(period_end, [None])
+        self.assertEqual(period_start, [None])
+        self.assertEqual(period_end, [None])
