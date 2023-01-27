@@ -9,7 +9,7 @@ class SimpleTest(unittest.TestCase):
 
         write('optimeta@dev.dev', into='email')
 
-        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui/screenshots/login-email.png'))
+        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui', 'screenshots', 'login-email.png'))
 
         click("Send")
 

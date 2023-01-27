@@ -8,7 +8,7 @@ class PrivacypageTests(SimpleTestCase):
     def test_privacy_link(self):
         start_firefox('localhost:8000/')
         click("privacy")    
-        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui/screenshots/privacy.png'))
+        get_driver().save_screenshot(os.path.join(os.getcwd(), 'tests-ui', 'screenshots', 'privacy.png'))
         kill_browser()
 
     def test_url_exists_at_correct_location(self):
