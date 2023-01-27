@@ -42,11 +42,11 @@ The folder `/fixtures` contains some test data, either as an SQL command to inse
 [`jq`](https://stedolan.github.io/jq/) is used for pretty-printing of the output.
 
 ```bash
-# create dump after running test_data.sql:
+# create dump after creating/harvesting test data:
 python manage.py dumpdata --exclude=auth --exclude=contenttypes | jq > fixtures/test_data.json
 
 # load:
-python manage.py loaddata fixtures/test_data.sql
+python manage.py loaddata fixtures/test_data.json
 ```
 
 ### Run locally
