@@ -10,8 +10,8 @@ curl -L https://fly.io/install.sh | sh
 
 ## Create PostGIS
 
-- https://community.fly.io/t/deploying-postgis/3530
-- https://fly.io/docs/reference/postgres-on-nomad/
+- <https://community.fly.io/t/deploying-postgis/3530>
+- <https://fly.io/docs/reference/postgres-on-nomad/>
 
 ```bash
 flyctl postgres create 
@@ -142,9 +142,10 @@ and
 
 <https://optimap.science/>
 
-## Update allowed hosts
+## Update allowed hosts and configure CSRF
 
 - <https://learndjango.com/tutorials/deploy-django-postgresql-flyio>
+- See <https://github.com/ifgi/optimetaPortal/issues/42> for links and issue description around CSRF
 
 Add to `tly.toml`:
 

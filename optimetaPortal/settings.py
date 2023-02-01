@@ -303,4 +303,6 @@ LOGGING = {
     }
 }
 
+CSRF_TRUSTED_ORIGINS = [i.strip('[]') for i in env('CSRF_TRUSTED_ORIGINS', default='https://localhost:8000').split(',')]
+
 ADMINS = [('OPTIMAP', 'login@optimap.science')]
