@@ -1,5 +1,5 @@
 const dataCopyright = " | Publication metadata license: <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>";
-const publications_url = '/api/v1/publications?limit=999999';
+const publications_url = '/api/v1/publications.json?limit=999999';
 
 async function initMap() {
     var map = L.map("map");
