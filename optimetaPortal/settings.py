@@ -144,10 +144,10 @@ Q_CLUSTER = {
 }
 
 CACHES = {
-    # defaults to local-memory caching, see https://docs.djangoproject.com/en/4.1/topics/cache/#local-memory-caching
+    # defaults to database caching to persist across processes, see https://docs.djangoproject.com/en/4.1/topics/cache/#local-memory-caching
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache',
     },
 
     # use for development
@@ -282,8 +282,8 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': env('OPTIMAP_LOGGING_CONSOLE_LEVEL', default='INFO'),
-            #'filters': ['require_debug_true'],
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
@@ -299,11 +299,15 @@ LOGGING = {
             'handlers': ['console', 'mail_admins'],
             'level': 'INFO',
         },
+        'publications': {
+            'handlers': ['console', 'mail_admins'],
+            'level': env('OPTIMAP_LOGGING_CONSOLE_LEVEL', default='INFO'),
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'WARNING',
             'propagate': False,
-        },
+        }
     }
 }
 

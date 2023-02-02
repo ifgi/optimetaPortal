@@ -70,6 +70,9 @@ docker run --name optimetaPortalDB -p 5432:5432 -e POSTGRES_USER=optimeta -e POS
 python manage.py makemigrations
 python manage.py migrate
 
+# create cache table
+python manage.py createcachetable
+
 # collect static files
 python manage.py collectstatic --noinput
 
