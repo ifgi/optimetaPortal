@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger(__name__)
+
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render
@@ -6,7 +9,7 @@ from django.http.request import HttpRequest
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 import secrets
 from django.contrib import messages
 from django.contrib.auth import login,logout
@@ -15,6 +18,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from publications.models import Subscription
 from datetime import datetime
+import imaplib
+import time
 
 LOGIN_TOKEN_LENGTH  = 32
 LOGIN_TOKEN_TIMEOUT = 10 * 60
@@ -27,7 +32,7 @@ def loginres(request):
     email = request.POST.get('email', False)
     subject = 'OPTIMAP Login'
     link = get_login_link(request, email)
-    message = f"""Hello {email} !
+    body = f"""Hello {email} !
 
 You requested that we send you a link to log in to OPTIMAP at {request.site.domain}:
 
@@ -36,8 +41,38 @@ You requested that we send you a link to log in to OPTIMAP at {request.site.doma
 Please click on the link to log in.
 """
 
-    send_mail(subject, message, from_email= settings.EMAIL_HOST_USER, recipient_list=[email])
-    return render(request,'login_response.html')
+    logging.info('Login process started for user %s', email)
+    try:
+        email = EmailMessage(
+            subject = subject,
+            body = body,
+            from_email = settings.EMAIL_HOST_USER,
+            to = [email],
+            headers={'OPTIMAP': request.site.domain}
+            )
+        result = email.send()
+        logging.info('%s sent login email to %s with the result: %s', settings.EMAIL_HOST_USER, email.recipients(), result)
+        
+        # https://stackoverflow.com/a/59735890/261210
+        with imaplib.IMAP4_SSL(settings.EMAIL_HOST_IMAP, port = settings.EMAIL_PORT_IMAP) as imap:
+            message = str(email.message()).encode()
+            imap.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+            # must make sure the folder exists
+            folder = settings.EMAIL_IMAP_SENT_FOLDER
+            imap.append(folder, '\\Seen', imaplib.Time2Internaldate(time.time()), message)
+            logging.debug('Saved email to IMAP folder {folder}')
+            
+        return render(request,'login_response.html')
+    except Exception as ex:
+        logging.exception('Error sending login email to %s from %s', email, settings.EMAIL_HOST_USER)
+        logging.error(ex)
+        return render(request, "error.html", {
+            'error': {
+                'class': 'danger',
+                'title': 'Login failed!',
+                'text': 'Error sending the login email. Please try again or contact us!'
+            }
+        })
 
 def privacypolicy(request):
     return render(request,'privacy.html')

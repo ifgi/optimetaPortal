@@ -115,6 +115,17 @@ Configuration for debugging with VS Code:
 
 Add `EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend` to the `.env` file to have emails printed to the console instead of sent via SMTP.
 
+Alternatively, you can run a local STMP server with the following command and configuration:
+
+```bash
+python -m smtpd -c DebuggingServer -n localhost:5587
+```
+
+```env
+OPTIMAP_EMAIL_HOST=localhost
+OPTIMAP_EMAIL_PORT=5587
+```
+
 ### Create superusers/admin
 
 Superusers/admin can be created  using the createsuperuser command:

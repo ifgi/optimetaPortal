@@ -171,11 +171,15 @@ CACHE_MIDDLEWARE_SECONDS = env('OPTIMAP_CACHE_SECONDS', default=3600)
 
 # for testing email sending EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND =       env('OPTIMAP_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST =          env('OPTIMAP_EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT =          env('OPTIMAP_EMAIL_PORT', default=587)
-EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default=False)
-EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default=False)
-EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=True)
+EMAIL_HOST =          env('OPTIMAP_EMAIL_HOST', default='optimeta.dev')
+EMAIL_PORT =          env('OPTIMAP_EMAIL_PORT_SMTP', default=587)
+EMAIL_HOST_IMAP =     env('OPTIMAP_EMAIL_HOST_IMAP', default='optimeta.imap')
+EMAIL_PORT_IMAP =     env('OPTIMAP_EMAIL_PORT_IMAP', default=993)
+EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default='optimap@dev')
+EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default='')
+EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=False)
+EMAIL_USE_SSL =       env('OPTIMAP_EMAIL_USE_SSL', default=False)
+EMAIL_IMAP_SENT_FOLDER = env('OPTIMAP_EMAIL_IMAP_SENT_FOLDER', default='')
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
@@ -278,8 +282,8 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
+            'level': env('OPTIMAP_LOGGING_CONSOLE_LEVEL', default='INFO'),
+            #'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
