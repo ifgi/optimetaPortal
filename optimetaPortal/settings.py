@@ -31,12 +31,12 @@ if os.name == 'nt':
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('OPTIMAP_DEBUG', default=True)
 
-ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
+ALLOWED_HOSTS = [i.strip('[]') for i in env('OPTIMAP_ALLOWED_HOST', default='*').split(',')]
 
 OPTIMAP_SUPERUSER_EMAILS = [i.strip('[]') for i in env('OPTIMAP_SUPERUSER_EMAILS', default='').split(',')]
 
