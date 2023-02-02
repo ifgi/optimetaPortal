@@ -3,6 +3,6 @@
 {% block alert %}
 <div class="alert alert-primary m-3" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-  <strong>Awesome!</strong> We sent a link to your email{{user.email}}. Please click on the link to complete your login process.
+  <strong>Awesome!</strong> We sent a link to {{email}}. Please click on the link to complete your login process within {{valid_minutes}} minutes.
 </div>
 {% endblock %}

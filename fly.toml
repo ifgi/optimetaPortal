@@ -20,10 +20,11 @@ processes = []
   OPTIMAP_EMAIL_PORT_SMTP = "587"
   OPTIMAP_EMAIL_HOST_USER = "login@optimap.science"
   OPTIMAP_EMAIL_USE_TLS= true
-  CSRF_TRUSTED_ORIGINS = "https://optimap.science"
   OPTIMAP_EMAIL_HOST_IMAP = "imap.ionos.de"
   OPTIMAP_EMAIL_PORT_IMAP = "993"
   OPTIMAP_EMAIL_IMAP_SENT_FOLDER = "\"Gesendete Objekte\""
+  CSRF_TRUSTED_ORIGINS = "https://optimap.science"
+  OPTIMAP_LOGGING_CONSOLE_LEVEL = "DEBUG"
 
 [experimental]
   allowed_public_ports = []
