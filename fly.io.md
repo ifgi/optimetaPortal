@@ -45,9 +45,9 @@ fly launch --dockerfile Dockerfile
 
 Now say YES when asked if you want to create a Postgres DB.
 
-> We recommend using the database_url(pip install dj-database-url) to parse the DATABASE_URL from os.environ['DATABASE_URL']
+> We recommend using the database_url (`pip install dj-database-url`) to parse the DATABASE_URL from os.environ['DATABASE_URL']
 >
-> For detailed documentation, see https://fly.dev/docs/django/
+> For detailed documentation, see <https://fly.dev/docs/django/>
 
 Why not - changed configuration style to use `dj-database-uri`.
 
@@ -154,6 +154,14 @@ Add to `tly.toml`:
 ```
 
 Then `flyctl deploy`.
+
+## Connect to database
+
+```bash
+fly proxy 15432:5432 -a optimap-db
+```
+
+Connect to database locally at port `15432`, e.g., with pgAdmin.
 
 ## Future
 

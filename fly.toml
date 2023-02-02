@@ -9,7 +9,7 @@ processes = []
   dockerfile = "Dockerfile"
 
 [deploy]
-  release_command = "python manage.py migrate"
+  release_command = "sh release_command.sh"
 
 [env]
   OPTIMAP_ALLOWED_HOST = "optimap.science,optimap.fly.dev"
