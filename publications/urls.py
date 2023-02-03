@@ -23,7 +23,7 @@ urlpatterns = [
     path("logout/", customlogout, name="logout"),
     path("usersettings/", user_settings, name="usersettings"),
     path("subscriptions/", user_subscriptions, name="subscriptions"),
-	path("addsubscriptions/", add_subscriptions, name="addsubscriptions"),
+    path("addsubscriptions/", add_subscriptions, name="addsubscriptions"),
     path("delete/", delete_account, name="delete"),
-	path("changeuser/", change_useremail, name="changeuser"),
+    path("changeuser/", change_useremail, name="changeuser"),
 ]
