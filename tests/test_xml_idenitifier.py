@@ -15,7 +15,7 @@ class SimpleTest(TestCase):
         return identifier_value
 
 
-    def test_one(self):
+    def test_xml_parse(self):
         xml_doc = """        
         <metadata>
             <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
