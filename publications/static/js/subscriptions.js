@@ -63,12 +63,6 @@ async function rendersubscriptions() {
 rendersubscriptions();
 
 
-
-
-
-
-
-=======
 //to trigger datepicker 
 $(function () {
     $('#datepicker1').datepicker({
