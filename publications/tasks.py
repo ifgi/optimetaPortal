@@ -112,11 +112,3 @@ def harvest_data(url):
     except requests.exceptions.RequestException as e:  
         print ("The requested URL is invalid or has bad connection.Please change the URL")
    
-
-
-# shell
-Schedule.objects.create(
-    func= 'publications.tasks.harvest_demo',
-    schedule_type=Schedule.MONTHLY
-)
-
