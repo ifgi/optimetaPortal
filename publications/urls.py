@@ -1,6 +1,7 @@
 """OPTIMAP urls."""
 
 from django.urls import path,include
+from django.shortcuts import redirect
 from publications.views import privacypolicy,Confirmationlogin,loginres,optimap,autheticate_via_magic_link,customlogout,user_settings,user_subscriptions,delete_account,change_useremail,data,add_subscriptions
 from .feeds import OptimetaFeed
 from .feeds import atomFeed
@@ -10,7 +11,11 @@ app_name = "optimap"
 
 urlpatterns = [
     path('', optimap, name="home"),
-    path("api/", include("publications.api")),
+    path('favicon.ico', lambda request: redirect('static/favicon.ico', permanent=True)),
+    path("api", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/v1", lambda request: redirect('/api/v1/', permanent=False)),
+    path("api/v1/", include("publications.api")),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/ui/', SpectacularRedocView.as_view(url_name='optimap:schema'), name='redoc'),
     path("data/", data, name="data"),

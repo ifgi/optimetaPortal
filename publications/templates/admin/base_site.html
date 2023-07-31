@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% comment %}
+See https://github.com/django/django/blob/main/django/contrib/admin/templates/admin/base_site.html
+{% endcomment %}
+
+{% block extrahead %}
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"><img src="{% static 'optimap_logo_w.svg' %}" width="90" height="100" alt="OPTIMAP logo"> ADMIN</a></h1>
+{% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %}
+{% endblock %}

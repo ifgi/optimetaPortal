@@ -9,18 +9,22 @@ processes = []
   dockerfile = "Dockerfile"
 
 [deploy]
-  release_command = "python manage.py migrate"
+  release_command = "sh release_command.sh"
 
 [env]
-  OPTIMAP_ALLOWED_HOST = "*"
+  OPTIMAP_ALLOWED_HOST = "optimap.science,optimap.fly.dev"
   PORT = "8000"
   OPTIMAP_DEBUG = false
   OPTIMAP_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-  OPTIMAP_EMAIL_HOST= "smtp.ionos.com"
-  OPTIMAP_EMAIL_PORT = "587"
+  OPTIMAP_EMAIL_HOST= "smtp.ionos.de"
+  OPTIMAP_EMAIL_PORT_SMTP = "587"
   OPTIMAP_EMAIL_HOST_USER = "login@optimap.science"
   OPTIMAP_EMAIL_USE_TLS= true
+  OPTIMAP_EMAIL_HOST_IMAP = "imap.ionos.de"
+  OPTIMAP_EMAIL_PORT_IMAP = "993"
+  OPTIMAP_EMAIL_IMAP_SENT_FOLDER = "\"Gesendete Objekte\""
   CSRF_TRUSTED_ORIGINS = "https://optimap.science"
+  OPTIMAP_LOGGING_CONSOLE_LEVEL = "DEBUG"
 
 [experimental]
   allowed_public_ports = []

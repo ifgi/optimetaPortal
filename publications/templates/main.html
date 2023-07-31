@@ -22,7 +22,12 @@
         <a class="dropdown-item" >{{user.email}}</a>
         <div class="dropdown-divider"></div>
         <li><a class="dropdown-item" href="{% url 'optimap:usersettings' %}">Settings</a></li>
-        <li><a class="dropdown-item" href="{% url 'optimap:subscriptions' %}">Subscription</a></li>
+        <li><a class="dropdown-item" href="{% url 'optimap:subscriptions' %}">Subscriptions</a></li>
+        {% if user.is_superuser %}
+        <div class="dropdown-divider"></div>
+        <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
+        {% endif %}
+        <div class="dropdown-divider"></div>
         <li><a class="dropdown-item" href="{% url 'optimap:logout' %}">Logout</a></li>
       </ul>
     </li>
@@ -49,8 +54,9 @@
         </li>
       </ul>
     </li>
-  {% endif %}  
-{% endblock %}
+  {% endif %}
+
+{% endblock navbar %}
 
 {% block content %}
 <div class="row">
@@ -70,7 +76,7 @@
     <div id="map"></div>
   </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
 
 {% block scripts %}

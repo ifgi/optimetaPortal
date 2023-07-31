@@ -3,6 +3,6 @@
 {% block alert %}
 <div class="alert alert-success m-3" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-  <strong>Welcome to OPTIMAP!</strong> Your account was successfully registered.
+  <strong>Welcome {% if not is_new %}back {%endif%}to OPTIMAP!</strong>{% if is_new %} Your account was successfully created.{% endif %}
 </div>
 {% endblock %}

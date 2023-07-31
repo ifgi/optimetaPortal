@@ -42,7 +42,7 @@ The folder `/fixtures` contains some test data, either as an SQL command to inse
 [`jq`](https://stedolan.github.io/jq/) is used for pretty-printing of the output.
 
 ```bash
-# create dump after running test_data.sql:
+# create dump after creating/harvesting test data:
 python manage.py dumpdata --exclude=auth --exclude=contenttypes | jq > fixtures/test_data.json
 
 # load:
@@ -70,6 +70,9 @@ docker run --name optimetaPortalDB -p 5432:5432 -e POSTGRES_USER=optimeta -e POS
 python manage.py makemigrations
 python manage.py migrate
 
+# create cache table
+python manage.py createcachetable
+
 # collect static files
 python manage.py collectstatic --noinput
 
@@ -80,7 +83,7 @@ python manage.py runserver
 OPTIMAP_CACHE=dummy OPTIMAP_DEBUG=True python manage.py runserver
 ```
 
-Now open a browser at <http://127.0.0.1:8000/publications/map/> for the map and <http://127.0.0.1:8000/publications/api/> for the API.
+Now open a browser at <http://127.0.0.1:8000/>.
 
 ### Debug with VS Code
 
@@ -115,6 +118,17 @@ Configuration for debugging with VS Code:
 
 Add `EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend` to the `.env` file to have emails printed to the console instead of sent via SMTP.
 
+Alternatively, you can run a local STMP server with the following command and configuration:
+
+```bash
+python -m smtpd -c DebuggingServer -n localhost:5587
+```
+
+```env
+OPTIMAP_EMAIL_HOST=localhost
+OPTIMAP_EMAIL_PORT=5587
+```
+
 ### Create superusers/admin
 
 Superusers/admin can be created  using the createsuperuser command:
@@ -148,8 +162,6 @@ python -Wa manage.py test
 
 # running UI tests needs either compose configuration or a manage.py runserver in a seperate shell
 docker-compose up --build
-
-# TODO insert test data
 
 python -Wa manage.py test tests-ui
 ```

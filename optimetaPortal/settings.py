@@ -31,14 +31,16 @@ if os.name == 'nt':
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-@(y&etxu!n5qkeyim8ineufd*c*0o20k6$q^$89md-i%qcdk57')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('OPTIMAP_DEBUG', default=True)
 
-ALLOWED_HOSTS = env('OPTIMAP_ALLOWED_HOST', default=[])
+ALLOWED_HOSTS = [i.strip('[]') for i in env('OPTIMAP_ALLOWED_HOST', default='*').split(',')]
 
 OPTIMAP_SUPERUSER_EMAILS = [i.strip('[]') for i in env('OPTIMAP_SUPERUSER_EMAILS', default='').split(',')]
+
+TEST_HARVESTING_ONLINE = env('OPTIMAP_TEST_HARVESTING_ONLINE', default=False)
 
 ROOT_URLCONF = 'optimetaPortal.urls'
 
@@ -61,10 +63,13 @@ INSTALLED_APPS = [
     'django_q',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'leaflet' # used in admin site
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+	'PAGE_SIZE': 999,
 }
 
 # https://github.com/tfranzel/drf-spectacular
@@ -139,10 +144,10 @@ Q_CLUSTER = {
 }
 
 CACHES = {
-    # defaults to local-memory caching, see https://docs.djangoproject.com/en/4.1/topics/cache/#local-memory-caching
+    # defaults to database caching to persist across processes, see https://docs.djangoproject.com/en/4.1/topics/cache/#local-memory-caching
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache',
     },
 
     # use for development
@@ -166,11 +171,15 @@ CACHE_MIDDLEWARE_SECONDS = env('OPTIMAP_CACHE_SECONDS', default=3600)
 
 # for testing email sending EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND =       env('OPTIMAP_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST =          env('OPTIMAP_EMAIL_HOST', default='smtp.gmail.com')
-EMAIL_PORT =          env('OPTIMAP_EMAIL_PORT', default=587)
-EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default=False)
-EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default=False)
-EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=True)
+EMAIL_HOST =          env('OPTIMAP_EMAIL_HOST', default='optimeta.dev')
+EMAIL_PORT =          env('OPTIMAP_EMAIL_PORT_SMTP', default=587)
+EMAIL_HOST_IMAP =     env('OPTIMAP_EMAIL_HOST_IMAP', default='optimeta.imap')
+EMAIL_PORT_IMAP =     env('OPTIMAP_EMAIL_PORT_IMAP', default=993)
+EMAIL_HOST_USER =     env('OPTIMAP_EMAIL_HOST_USER', default='optimap@dev')
+EMAIL_HOST_PASSWORD = env('OPTIMAP_EMAIL_HOST_PASSWORD', default='')
+EMAIL_USE_TLS =       env('OPTIMAP_EMAIL_USE_TLS', default=False)
+EMAIL_USE_SSL =       env('OPTIMAP_EMAIL_USE_SSL', default=False)
+EMAIL_IMAP_SENT_FOLDER = env('OPTIMAP_EMAIL_IMAP_SENT_FOLDER', default='')
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
@@ -273,7 +282,7 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
@@ -290,12 +299,18 @@ LOGGING = {
             'handlers': ['console', 'mail_admins'],
             'level': 'INFO',
         },
+        'publications': {
+            'handlers': ['console', 'mail_admins'],
+            'level': env('OPTIMAP_LOGGING_CONSOLE_LEVEL', default='INFO'),
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'WARNING',
             'propagate': False,
-        },
+        }
     }
 }
+
+CSRF_TRUSTED_ORIGINS = [i.strip('[]') for i in env('CSRF_TRUSTED_ORIGINS', default='https://localhost:8000').split(',')]
 
 ADMINS = [('OPTIMAP', 'login@optimap.science')]

@@ -6,13 +6,13 @@ from django.contrib.gis.geos import Point, MultiPoint, LineString, Polygon, Geom
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'optimetaPortal.settings')
 
-
 class SimpleTest(TestCase):
+    
     def setUp(self):
         self.client = Client()
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpClass(cls):
         pub1 = Publication.objects.create(
             title="Publication One",
             abstract="This is a first publication. It's good.",
@@ -24,6 +24,7 @@ class SimpleTest(TestCase):
                 Polygon( ((52, 8), (55, 8), (55, 9), (52, 8)) ))
         )
         pub1.save()
+
         pub2 = Publication.objects.create(
             title="Publication Two",
             abstract="Seconds are better than firsts.",
@@ -32,21 +33,34 @@ class SimpleTest(TestCase):
         )
         pub2.save()
 
+    @classmethod
+    def tearDownClass(cls):
+        Publication.objects.all().delete()
+
+    def test_api_redirect(self):
+        response = self.client.get('/api')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/api/v1/')
+
+        response = self.client.get('/api/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/api/v1/')
+
     def test_api_root(self):
-        response = self.client.get('/api/publications/')
+        response = self.client.get('/api/v1/publications/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('Content-Type'), 'application/json')
 
-        body = response.json()
-        self.assertEqual(body['type'], 'FeatureCollection')
-        self.assertEqual(len(body['features']), 2)
+        results = response.json()['results']
 
-        self.assertEqual(len(body['features'][0]['properties']), 9)
-        self.assertEqual(body['features'][0]['properties']['title'], 'Publication One')
-        self.assertEqual(body['features'][0]['properties']['publicationDate'], '2022-10-10')
+        self.assertEqual(results['type'], 'FeatureCollection')
+        self.assertEqual(len(results['features']), 2)
 
-    def test_api_publication_1(self):
-        response = self.client.get('/api/publications/3/')
+    def test_api_publication(self):
+        all = self.client.get('/api/v1/publications/').json()
+        one_publication = [feat for feat in all['results']['features'] if feat['properties']['title'] == 'Publication One']
+        print('\n\n %s \n\n' % all)
+        response = self.client.get('/api/v1/publications/%s.json' % one_publication[0]['id'])
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get('Content-Type'), 'application/json')
 
@@ -59,3 +73,7 @@ class SimpleTest(TestCase):
         self.assertEqual(body['geometry']['geometries'][2]['coordinates'][0], [11.0, 12.0])
         self.assertEqual(body['properties']['title'], 'Publication One')
         self.assertEqual(body['properties']['publicationDate'], '2022-10-10')
+
+    def test_api_publication_99_missing(self):
+        response = self.client.get('/api/v1/publications/99.json')
+        self.assertEqual(response.status_code, 404)

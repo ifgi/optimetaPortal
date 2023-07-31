@@ -1,5 +1,5 @@
 const dataCopyright = " | Publication metadata license: <a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC-0</a>";
-const publications_url = '/api/publications/';
+const publications_url = '/api/v1/publications.json?limit=999999';
 
 async function initMap() {
     var map = L.map("map");
@@ -68,8 +68,9 @@ function publicationPopup(feature, layer) {
 
 async function load_publications() {
     response = await fetch(publications_url);
-    geojson = await response.json();
-    return geojson;
+    body = await response.json();
+    console.log('OPTIMAP retrieved ' + body.count + ' results.');
+    return body.results;
 }
 
 // render publications after page is loaded
