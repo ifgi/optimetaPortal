@@ -6,6 +6,7 @@
 <!-- Leaflet-->
 
 <link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+<script type="text/javascript" src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
 <script src="{% static 'js/leaflet.js' %}"></script>
 {% endblock %}
 
@@ -54,7 +55,7 @@
 {% block content %}
 <div class="row">
   <!-- chart -->
-  <div class="col-sm-2">
+  <div class="col-sm-5">
     <div id="sidebar" class="flex-column p-2">
       <p>Timeline</p>
       <div class="p-2" id="timeline">

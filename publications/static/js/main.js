@@ -19,7 +19,7 @@ async function initMap() {
         //"Esri World Imagery": esriWorldImageryLayer
     };
 
-    publicationsGroup = new L.FeatureGroup();
+    var publicationsGroup = new L.FeatureGroup();
     map.addLayer(publicationsGroup);
 
     var overlayMaps = {
@@ -42,9 +42,22 @@ async function initMap() {
 }
 
 function publicationPopup(feature, layer) {
-    var popupContent = '<h3>'+ feature.properties['title']+'</h3>' +
-        '<l>'+ feature.properties['abstract']+ '</l>'+'<br>'+
-        '<a href="http://www.google.com">Visit Article</a>' ;
+    var popupContent = '';
+    if (feature.properties['title']) {
+        popupContent += '<h3>'+ feature.properties['title']+'</h3>'
+    }
+
+    if (feature.properties['timeperiod_startdate'] && feature.properties['timeperiod_enddate']) {       
+        popupContent += '<l>' + '<b>' + "Timeperiod : " + '</b>' + "&nbsp;"+ "from" + "&nbsp;"+ feature.properties['timeperiod_startdate'] + "&nbsp;" + "to" + "&nbsp;" + feature.properties['timeperiod_enddate'] +'</l>' +'<br>';
+    }     
+
+    if (feature.properties['abstract']) {
+        popupContent += '<p>'+ feature.properties['abstract']+ '</p>'+'<br>'
+    }
+    
+    if (feature.properties['url']) {       
+        popupContent += '<a href=' + feature.properties['url']+ '>' + "Visit Article" + '</a>' ;
+    }  
 
     if (feature.properties && feature.properties.popupContent) {
         popupContent += feature.properties.popupContent;
@@ -64,10 +77,5 @@ $(function () {
     initMap();
 });
 
-// email sent alert
-$(document).ready(function(){
-    $( 'button').click(function() {
-        $('.alert').show()
-    })
-});
+
 

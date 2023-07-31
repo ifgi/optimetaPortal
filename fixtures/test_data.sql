@@ -2,7 +2,7 @@
 -- possibly need to convert to GeometryCollection from FeatureCollection if we face that in GeoJSON the wild: https://gis.stackexchange.com/questions/177254/create-a-geosgeometry-from-a-featurecollection-in-geodangoINSERT INTO public.publications_publication VALUES
 
 INSERT INTO public.publications_publication VALUES
-  (1, 'The First Article', 'This is the first article. It is good in Münster.', '2010-10-10 10:10:10', ST_GeomFromGeoJSON('
+  (1, 'The First Article', 'This is the first article. It is good in Münster.', '2010-10-10 10:10:10',NULL, 'https://service.tib.eu/optimeta/index.php/optimeta/article/view/8' , ST_GeomFromGeoJSON('
     {
         "type": "GeometryCollection",
         "geometries": [{
@@ -24,8 +24,8 @@ INSERT INTO public.publications_publication VALUES
                 [7.599984296478425,51.984257653537384]
             ]]
         }]
-    }'), now(), now(), '10.5555/12345678', NULL),
-  (2, 'Paper Two', 'A second article. It is better; from Hanover to Berlin.', '2011-11-11 11:11:11', ST_GeomFromGeoJSON('
+    }'),'Journal of Optimal Geolocations', now(), now(), '{"2022-06-01"}','{"2022-06-08"}'),
+  (2, 'Paper Two', 'A second article. It is better; from Hanover to Berlin.', '2011-11-11 11:11:11','10.5555/12345678', NULL , ST_GeomFromGeoJSON('
     {
         "type": "GeometryCollection",
         "geometries": [{
@@ -45,4 +45,4 @@ INSERT INTO public.publications_publication VALUES
                 [13.396695482095708,52.517051586549286]
             ]
         }]
-    }'), now(), now(), NULL, 'http://paper.url/two')
+    }'), 'Journal of Optimal Geolocations',now(), now(), '{"2022-02-01"}','{"2022-03-31"}')
