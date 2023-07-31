@@ -122,17 +122,22 @@ def user_settings(request):
     return render(request,'user_settings.html')
 
 def user_subscriptions(request):
-    subs = Subscription.objects.all()
-    count_subs = Subscription.objects.all().count()
-    return render(request,'subscriptions.html',{'sub':subs,'count':count_subs})
-
+    if request.user.is_authenticated:
+        subs = Subscription.objects.all()
+        count_subs = Subscription.objects.all().count()
+        return render(request,'subscriptions.html',{'sub':subs,'count':count_subs})
+    else:
+        pass
 def add_subscriptions(request):
     if request.method == "POST":
         search_term = request.POST.get("search", False)
         start_date = request.POST.get('start_date', False)
         end_date = request.POST.get('end_date', False)
         currentuser = request.user
-        user_name = currentuser.username
+        if currentuser.is_authenticated:            
+            user_name = currentuser.username
+        else : 
+            user_name = None
         start_date_object = datetime.strptime(start_date, '%m/%d/%Y')
         end_date_object = datetime.strptime(end_date, '%m/%d/%Y')
         

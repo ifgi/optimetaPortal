@@ -29,7 +29,7 @@ class OJSservers(models.Model):
     last_harvest = models.DateTimeField(auto_now_add=True,null=True)
     
 class Subscription(models.Model):
-    search_text = models.CharField(max_length=4096)
+    name = models.CharField(max_length=4096)
     timeperiod_startdate = models.DateField(null=True)
     timeperiod_enddate = models.DateField(null=True)
     search_area = models.GeometryCollectionField(null=True, blank=True)
@@ -37,7 +37,7 @@ class Subscription(models.Model):
 
     def __str__(self):
         """Return string representation."""
-        return self.search_text
+        return self.name
 
     class Meta:
         ordering = ['user_name']
