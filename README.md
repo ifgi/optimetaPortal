@@ -7,7 +7,7 @@
 
 # OPTIMETA Portal - OPTIMAP
 
-[![Project Status: Moved to [http://example.com](https://github.com/GeoinformationSystems/optimap/) – The project has been moved to a new location, and the version at that location should be considered authoritative.](https://www.repostatus.org/badges/latest/moved.svg)](https://www.repostatus.org/#moved) to [[http://example.com](https://github.com/GeoinformationSystems/optimap/)]([http://example.com](https://github.com/GeoinformationSystems/optimap/)) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8198944.svg)](https://doi.org/10.5281/zenodo.8198944)
+[![Project Status: Moved to https://github.com/GeoinformationSystems/optimap/ – The project has been moved to a new location, and the version at that location should be considered authoritative.](https://www.repostatus.org/badges/latest/moved.svg)](https://www.repostatus.org/#moved) to <https://github.com/GeoinformationSystems/optimap/> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8198944.svg)](https://doi.org/10.5281/zenodo.8198944)
 
 Geospatial discovery of research articles based on open metadata.
 The OPTIMETA Portal is part of the OPTIMETA project (<https://projects.tib.eu/optimeta>) and relies on the spatial and temporal metadata collected for scientific papers with the OPTIMETA Geo Plugin for Open Journal Systems ([OJS](https://pkp.sfu.ca/ojs/)) published at <https://github.com/TIBHannover/optimetaGeo>.
